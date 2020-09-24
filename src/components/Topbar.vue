@@ -13,10 +13,9 @@
                 <span>EduManagementSystem - English</span> 
             </b-navbar-nav>
 
-            <b-collapse id="nav-collapse" is-nav>
-                <div class="chochet">
+            <b-collapse id="nav-collapse" is-nav right> 
                     <!-- Right aligned nav items -->
-                    <b-navbar-nav class="ml-auto">
+                    <b-navbar-nav class="ml-auto" right>
                         <b-nav-form>
                             <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
                             <b-button size="sm" class="my-2 my-sm-0 btn btn-warning" type="submit">Search</b-button>
@@ -42,7 +41,6 @@
                             <b-dropdown-item class="text"><router-link to='/login'><i style="color: #000000" class="icofont-logout"></i> Logout</router-link></b-dropdown-item>
                         </b-nav-item-dropdown>
                     </b-navbar-nav>
-                </div>
             </b-collapse>
         </b-navbar>
         <!-- -------------------------------------------------------------------------------------------------------- -->
