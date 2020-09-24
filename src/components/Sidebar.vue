@@ -6,15 +6,15 @@
                     <div class="avatar">
                         <img src="../assets/avatar1.jpg" alt="">
                     </div>
-                    <h3 class="avatar-name">
+                    <div class="avatar-name">
                         <p style="color: white">Adminstrator</p> 
-                    </h3>
+                    </div>
                 </li>
                 <li>
                     <router-link to='/ManagementSystem/home-page'><i class="icofont-notepad"></i>Home Page</router-link>
                 </li>
                 <li>
-                    <a href="#" v-on:click.prevent v-b-toggle.collapse-1><i class="icofont-dashboard-web"></i>System's Info<span class="caret float-right"><i class="icofont-caret-down"></i></span></a>
+                    <a href="#" v-on:click.prevent v-b-toggle.collapse-1><i class="icofont-dashboard-web"></i>SystemInfo</a>
                     <b-collapse id="collapse-1">
                         <ul id="collapse-1">
                             <li><router-link to='/ManagementSystem/overall'>Overall</router-link></li>

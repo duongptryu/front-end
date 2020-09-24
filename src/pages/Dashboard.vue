@@ -49,16 +49,6 @@ export default {
                 this.toggle = ''
             }
         },
-        changeColor() {
-            var color = ["#32064A", "#E56B1F", "#FCD02C", "E42C6A", "#292930", "#3EB650", "#FCC133", "#E12B38"];
-            var i = 0;
-                document.querySelector("button").addEventListener("click", 
-            function() {
-                i = i < color.length ? ++i : 0;
-                document.querySelector("body").style.background = color[i];
-                });
-            console.log(color);
-        }
     }
 }
 </script>

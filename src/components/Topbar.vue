@@ -2,18 +2,19 @@
     <div>
         <!-- New -->
         <b-navbar toggleable="lg" type="dark" variant="info">
-            <b-navbar-brand href="#" v-on:click.prevent.stop="$emit('toggle')">
-                <i class="icofont-gears"></i>
-            </b-navbar-brand>
 
-            <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+            <b-navbar-brand href="#" v-on:click.prevent.stop="$emit('toggle')">
+                <i class="icofont-navigation-menu" style="color: #ffffff"></i>
+            </b-navbar-brand>   
+
+            <b-navbar-toggle target="nav-collapse" ></b-navbar-toggle>
+
+            <b-navbar-nav id="text-educhat">
+                <span>EduManagementSystem - English</span> 
+            </b-navbar-nav>
 
             <b-collapse id="nav-collapse" is-nav>
-                <b-navbar-nav id="text-educhat">
-                    <span>EduManagementSystem - English</span> 
-                </b-navbar-nav>
-
-                <div class="right">
+                <div class="chochet">
                     <!-- Right aligned nav items -->
                     <b-navbar-nav class="ml-auto">
                         <b-nav-form>
@@ -24,7 +25,7 @@
                         <b-nav-item-dropdown text="Lang" right>
                             <!-- Using 'button-content' slot -->
                             <template v-slot:button-content>
-                                <i class="icofont-earth"></i>                        
+                                <i class="icofont-earth" style="color: #ffffff"></i>                        
                             </template>
                             <b-dropdown-item href="#">EN</b-dropdown-item>
                             <b-dropdown-item href="#">ES</b-dropdown-item>
@@ -35,7 +36,7 @@
                         <b-nav-item-dropdown right>
                             <!-- Using 'button-content' slot -->
                             <template v-slot:button-content>
-                                <i class="icofont-ui-user"></i>
+                                <i class="icofont-ui-user" style="color: #ffffff"></i>
                             </template>
                             <b-dropdown-item class="text"><router-link to='/EduManagementSystem/setting'><i class="icofont-settings-alt" style="color: #000000"></i> Setting</router-link></b-dropdown-item>
                             <b-dropdown-item class="text"><router-link to='/login'><i style="color: #000000" class="icofont-logout"></i> Logout</router-link></b-dropdown-item>

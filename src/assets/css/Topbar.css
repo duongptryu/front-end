@@ -1,7 +1,8 @@
 .navbar {
-    background-color: #ffa500;
     border-bottom: 1px solid #dee4ec;
+    background: url('../top-bar-img.jpg');
     box-shadow: 5px 7px 26px -5px #cdd4e7;
+    position: relative;
 }
 
 .navbar .nav-link {
@@ -30,7 +31,7 @@
     text-decoration: none;
 }
 
-.right {
-    display: inline-block;
+.chochet {
+    display: absolute;
     float: right;
 }
