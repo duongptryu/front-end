@@ -37,6 +37,7 @@
           <div class="title-card">
             <h4>Staff List</h4>
           </div>
+          <button class="btn btn-success" @click="createStaff()">Create Staff</button>
             <div class="questionList">
               <table v-if="items.length" class="table table-hover">
                 <thead>
@@ -48,15 +49,15 @@
                       </label>
                     </th>
                     <th class="text-center">StaffID</th>
-                    <th>User_Name</th>
-                    <th class="text-center">Passsword</th>
-                    <th>Role</th>
-                    <th>Staff_Name</th>
-                    <th>Age</th>
-                    <th>Status</th>
+                    <th class="text-center">User_Name</th>
+                    <th class="text-center">Role</th>
+                    <th class="text-center">Staff_Name</th>
+                    <th class="text-center">Age</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Option</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody class="tb-body">
                   <tr v-for="(item, index) in resultQuery" :key="index">
                     <td>{{index + 1}}</td>
                     <td>
@@ -66,11 +67,14 @@
                     </td>
                     <td>{{ item._id }}</td>
                     <td>{{ item.username }}</td>
-                    <td>{{ item.password }}</td>
                     <td>{{ item.role }}</td>
                     <td>{{ item.nameStaff}}</td>
                     <td>{{ item.age }}</td>
                     <td>{{ item.staffStatus }}</td>
+                    <td> 
+                      <button class="btn btn-primary" @click="update()">Update</button>
+                      <button class="btn btn-danger" @click="remove(result.item._id)">Delete</button> 
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -79,7 +83,7 @@
       </div>
     </div>
     <!-- ----------------------------------------------------------------- -->
-    <table class="table">
+    <!-- <table class="table">
         <thead class="thead-dark">
             <tr class="text-center">
             <th scope="col">#</th>
@@ -108,7 +112,7 @@
             <td>@twitter</td>
             </tr>
         </tbody>
-        </table>
+    </table> -->
   </div>
 </template>
 
@@ -138,8 +142,8 @@ export default {
 
       show() {
         console.log(this.selected)
-      }
-    },
+      },
+
     computed: {
       resultQuery() {
         if(this.keyword) {
@@ -152,9 +156,10 @@ export default {
       }
     },
     mounted() {
-      axios.get(`http://b5138aabec2f.ngrok.io/admin/staff`)
+      axios.get(`http://9cc5b23b608e.ngrok.io/admin/staff`)
       .then(response => {this.items = response.data})
     }
+  }
 }
 </script>
 

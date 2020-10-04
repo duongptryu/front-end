@@ -68,18 +68,31 @@ export default {
     data() {
         return {
             postBody:{
-                username: 'duongptryu',
+                username: 'asdasd',
                 password: '123456'
             }
         }
     },
     methods: {
         login() {
-            axios.post('http://ee62184f9006.ngrok.io/login/staff-login', this.postBody, {
-                withCredentials: 'true',
-                // mode: "cors",
-                headers: {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'}
-            }).then(response => console.log(response))
+            axios.post('http://9cc5b23b608e.ngrok.io/login/staff-login', this.postBody,{
+                withCredentials: true,
+                mode: 'cors',
+                headers: {'Content-Type': 'application/json'},
+            }).then(response => {
+                console.log(response);
+            })
+            // fetch("http://ee62184f9006.ngrok.io/login/staff-login",{
+            //     method: "POST",
+            //     headers: {
+            //         "Content-Type": 'application/json',
+            //     },
+            //     mode: 'cors',
+            //     credentials: 'include',
+            //     body: JSON.stringify( this.postBody )
+            // }).then(response => {
+            //     console.log(response)
+            // })
         }
     }
 }

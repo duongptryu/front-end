@@ -133,3 +133,11 @@ td {
 .pick {
     line-height: 5px;
 }
+
+.btn {
+    margin: 10px;
+}
+
+.tb-body {
+    vertical-align: 50%;
+}
