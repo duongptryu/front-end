@@ -9,7 +9,7 @@
               <div class="login-row row no-margin">
                 <label for> <i class="fas fa-envelope"></i> Username </label>
                 <input
-                  v-model="username"
+                  v-model="postBody.username"
                   type="email"
                   class="form-control form-control-sm"
                   spellcheck="false"
@@ -19,7 +19,7 @@
               <div class="login-row row no-margin">
                 <label for> <i class="fas fa-unlock-alt"></i> Password </label>
                 <input
-                  v-model="password"
+                  v-model="postBody.password"
                   type="password"
                   class="form-control form-control-sm"
                 />
@@ -32,15 +32,15 @@
                 </p>
               </div>
               <p>Login as:</p>
-              <el-select v-model="value" placeholder="Select">
+              <!-- <el-select v-model="value" placeholder="Select">
                 <el-option
                   v-for="item in options"
                   :key="item.value"
                   :label="item.label"
-                  :value="item.value"
-                >
+                  :value="item.value">
                 </el-option>
-              </el-select>
+              </el-select> -->
+              <b-form-select v-model="value" :options="options"></b-form-select>
               <div class="login-row btnroo row no-margin">
                 <button
                   type="button"
@@ -83,16 +83,44 @@ export default {
   data() {
     return {
       postBody: {
-        username: "asdasd",
-        password: "123456",
+        username: '',
+        password: '',
       },
+      options: [
+        {
+          value: 1,
+          text: 'admin-login',
+        },
+        {
+          value: 2,
+          text: "staff-login"
+        },
+        {
+          value: 3,
+          text: "trainee-login"
+        },
+        {
+          value: 4,
+          text: "trainer-login"
+        }
+      ],
+      value: 1,
     };
   },
   methods: {
+
+    
     login() {
-      
+      console.log(this.postBody);
+      console.log(this.value);
+      var user = "";
+      for(var i = 0; i < this.options.length; i++) {
+        if(this.value === this.options[i].value) {
+          user = this.options[i].value;    
+        }
+      }
       axios
-        .post("http://9cc5b23b608e.ngrok.io/login/staff-login", this.postBody, {
+        .post(`http://9cc5b23b608e.ngrok.io/login/` + user, this.postBody, {
           withCredentials: true,
           mode: "cors",
           headers: { "Content-Type": "application/json" },
