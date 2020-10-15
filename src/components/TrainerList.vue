@@ -129,7 +129,7 @@ export default {
       }
     },
   mounted(){
-       axios.get("http://bfecc3a99b3e.ngrok.io/admin/trainers").then(
+       axios.get("http://7b91e4ee3ba9.ngrok.io/admin/trainers").then(
         response => {
           this.items = response.data
         })

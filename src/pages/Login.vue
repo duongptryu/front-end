@@ -47,12 +47,9 @@
                   class="btn btn-primary btn-sm"
                   @click="login()"
                 >
-                  <router-link
-                    to="/ManagementSystem/Home-page"
-                    style="color:#fff;"
-                    >Sign In</router-link
-                  >
+                  <router-link to style="color:#fff;">Sign In</router-link>
                 </button>
+                {{ info }}
               </div>
               <div class="login-row donroo row no-margin">
                 <p>
@@ -104,29 +101,28 @@ export default {
           text: "Trainer"
         }
       ],
-      value: 1,
+      value: "trainee-login",
+      info: null
     };
   },
   methods: {
-
-    
     login() {
-      console.log(this.postBody);
-      console.log(this.value);
-      var user = "";
+      var role = "";
       for(var i = 0; i < this.options.length; i++) {
         if(this.value === this.options[i].value) {
-          user = this.options[i].value;    
+          role = this.options[i].value;    
         }
       }
       axios
-        .post(`http://9cc5b23b608e.ngrok.io/login/` + user, this.postBody, {
+        .post(`http://7b91e4ee3ba9.ngrok.io/login/${role}`, this.postBody, {
           withCredentials: true,
           mode: "cors",
           headers: { "Content-Type": "application/json" },
         })
-        .then((response) => {
-          console.log(response);
+        .then(() => {
+          this.$router.push({path: '/'});
+        }).catch(() => {
+              this.info = 'Incorrect username or password';
         });
     },
   },
