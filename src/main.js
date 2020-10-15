@@ -7,6 +7,7 @@ import Axios from 'axios';
 import VueCarousel from 'vue-carousel';
 import AOS from "aos";
 import "aos/dist/aos.css";
+import ElementUI from 'element-ui'
 
 // require
 
@@ -15,6 +16,8 @@ Vue.use(require('vue-cookies'))
 // es2015 module
 import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)
+
+
 
 // set default config
 Vue.$cookies.config('700d')
@@ -28,10 +31,11 @@ Vue.use(VueCarousel);
 Vue.use(Vuex)
 Vue.use(Axios)
 Vue.use(BootstrapVue)
-
+Vue.use(ElementUI);
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+
 
 Vue.config.productionTip = false
 

@@ -48,12 +48,9 @@
                         <input type="checkbox" v-model="selectAll" @click="select">
                       </label>
                     </th>
-                    <th class="text-center">StaffID</th>
                     <th class="text-center">User_Name</th>
+                    <th class="text-center">Password</th>
                     <th class="text-center">Role</th>
-                    <th class="text-center">Staff_Name</th>
-                    <th class="text-center">Age</th>
-                    <th class="text-center">Status</th>
                     <th class="text-center">Option</th>
                   </tr>
                 </thead>
@@ -65,12 +62,11 @@
                         <input v-model="selected" :value="item._id" type="checkbox" @change="show">
                       </label>
                     </td>
-                    <td>{{ item._id }}</td>
                     <td>{{ item.username }}</td>
+                    <td>{{ item.password}}</td>
                     <td>{{ item.role }}</td>
-                    <td>{{ item.nameStaff}}</td>
-                    <td>{{ item.age }}</td>
-                    <td>{{ item.staffStatus }}</td>
+                    <!-- <td v-if="item.staffStatus">active</td>
+                    <td v-else-if="!item.staffStatus">non-active</td> -->
                     <td> 
                       <button class="btn btn-primary" @click="update()">Update</button>
                       <button class="btn btn-danger" @click="remove(result.item._id)">Delete</button> 
@@ -82,6 +78,9 @@
         </div>
       </div>
     </div>
+    <!--  -->
+
+    <!--  -->
     <!-- ----------------------------------------------------------------- -->
     <!-- <table class="table">
         <thead class="thead-dark">
@@ -119,7 +118,7 @@
 <script>
 import axios from 'axios';
 export default {
-    name: 'StaffList',
+  name: 'StaffList',
     data() {
       return {
         keyword: '',
@@ -127,6 +126,23 @@ export default {
         selectAll: false,
         selected: [],
         alertMessage: 'Calling APIs Successful !'
+      }
+    },
+  mounted(){
+       axios.get("http://bfecc3a99b3e.ngrok.io/admin/staff").then(
+        response => {
+          this.items = response.data
+        })
+  },computed: {
+      resultQuery() {
+        if(this.keyword) {
+          return this.items.filter((item) => {
+            return this.keyword.toLowerCase().split(' ').every(v => item.Question.toLowerCase().includes(v))
+          })
+        }else {
+          console.log(this.items)
+          return this.items
+        }
       }
     },
     methods: {
@@ -144,21 +160,9 @@ export default {
         console.log(this.selected)
       },
 
-    computed: {
-      resultQuery() {
-        if(this.keyword) {
-          return this.items.filter((item) => {
-            return this.keyword.toLowerCase().split(' ').every(v => item.Question.toLowerCase().includes(v))
-          })
-        }else {
-          return this.items
-        }
+      createStaff() {
+
       }
-    },
-    mounted() {
-      axios.get(`http://9cc5b23b608e.ngrok.io/admin/staff`)
-      .then(response => {this.items = response.data})
-    }
   }
 }
 </script>

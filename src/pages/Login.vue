@@ -7,9 +7,7 @@
             <div class="login-box">
               <h5>Welcome Back Adminstrator!</h5>
               <div class="login-row row no-margin">
-                <label for>
-                  <i class="fas fa-envelope"></i> Username
-                </label>
+                <label for> <i class="fas fa-envelope"></i> Username </label>
                 <input
                   v-model="username"
                   type="email"
@@ -19,24 +17,41 @@
               </div>
 
               <div class="login-row row no-margin">
-                <label for>
-                  <i class="fas fa-unlock-alt"></i> Password
-                </label>
-                <input v-model="password" type="password" class="form-control form-control-sm" />
+                <label for> <i class="fas fa-unlock-alt"></i> Password </label>
+                <input
+                  v-model="password"
+                  type="password"
+                  class="form-control form-control-sm"
+                />
               </div>
 
               <div class="login-row row forrr no-margin">
-                <p>
-                  <input type="checkbox" /> Remember Me
-                </p>
+                <p><input type="checkbox" /> Remember Me</p>
                 <p>
                   <a class="vgh" href>Forget Password?</a>
                 </p>
               </div>
-
+              <p>Login as:</p>
+              <el-select v-model="value" placeholder="Select">
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                >
+                </el-option>
+              </el-select>
               <div class="login-row btnroo row no-margin">
-                <button type="button" class="btn btn-primary btn-sm" @click="login()">
-                  <router-link to="/ManagementSystem/Home-page" style="color:#fff;">Sign In</router-link>
+                <button
+                  type="button"
+                  class="btn btn-primary btn-sm"
+                  @click="login()"
+                >
+                  <router-link
+                    to="/ManagementSystem/Home-page"
+                    style="color:#fff;"
+                    >Sign In</router-link
+                  >
                 </button>
               </div>
               <div class="login-row donroo row no-margin">
@@ -58,44 +73,36 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
-    name: 'Login',
-    beforeCreate: function() {
-        document.body.className = 'login';
+  name: "Login",
+  beforeCreate: function() {
+    document.body.className = "login";
+  },
+  data() {
+    return {
+      postBody: {
+        username: "asdasd",
+        password: "123456",
+      },
+    };
+  },
+  methods: {
+    login() {
+      
+      axios
+        .post("http://9cc5b23b608e.ngrok.io/login/staff-login", this.postBody, {
+          withCredentials: true,
+          mode: "cors",
+          headers: { "Content-Type": "application/json" },
+        })
+        .then((response) => {
+          console.log(response);
+        });
     },
-    data() {
-        return {
-            postBody:{
-                username: 'asdasd',
-                password: '123456'
-            }
-        }
-    },
-    methods: {
-        login() {
-            axios.post('http://9cc5b23b608e.ngrok.io/login/staff-login', this.postBody,{
-                withCredentials: true,
-                mode: 'cors',
-                headers: {'Content-Type': 'application/json'},
-            }).then(response => {
-                console.log(response);
-            })
-            // fetch("http://ee62184f9006.ngrok.io/login/staff-login",{
-            //     method: "POST",
-            //     headers: {
-            //         "Content-Type": 'application/json',
-            //     },
-            //     mode: 'cors',
-            //     credentials: 'include',
-            //     body: JSON.stringify( this.postBody )
-            // }).then(response => {
-            //     console.log(response)
-            // })
-        }
-    }
-}
+  },
+};
 </script>
 
 <style>
