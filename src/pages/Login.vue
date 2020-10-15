@@ -88,20 +88,20 @@ export default {
       },
       options: [
         {
-          value: 1,
-          text: 'admin-login',
+          value: "admin-login",
+          text: 'Admin',
         },
         {
-          value: 2,
-          text: "staff-login"
+          value: "staff-login",
+          text: "Staff"
         },
         {
-          value: 3,
-          text: "trainee-login"
+          value: 'trainee-login',
+          text: "Trainee"
         },
         {
-          value: 4,
-          text: "trainer-login"
+          value: "trainer-login",
+          text: "Trainer"
         }
       ],
       value: 1,
