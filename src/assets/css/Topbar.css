@@ -1,0 +1,32 @@
+.navbar {
+    border-bottom: 1px solid #dee4ec;
+    background: url('../top-bar-img.jpg');
+    box-shadow: 5px 7px 26px -5px #cdd4e7;
+    position: relative;
+}
+
+.navbar .nav-link {
+    color: #000000 !important;
+}
+
+.navbar a i {
+    color: #000000;
+    font-size: 20px;
+}
+
+@media(max-width: 768px) {
+    .navbar-dark .navbar-toggler {
+        border-color: transparent;
+    }
+}
+
+#text-educhat {
+    color: #ffffff;
+    margin: 12px;
+    font-size: 20px;
+}
+
+.text a {
+    color: #000000;
+    text-decoration: none;
+}
