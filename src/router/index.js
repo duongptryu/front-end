@@ -5,14 +5,16 @@ import ManagementSystem from '../pages/Dashboard.vue'
 import Login from '../pages/Login.vue'
 import NotFound from '../pages/NotFound.vue'
 import StaffList from '../views/admin/StaffList.vue'
+import adminProfile from '../views/admin/admin_Profile.vue'
+import createNewStaff from '../views/admin/createNewStaff---Test.vue'
 import TrainerList from '../views/staff/TrainerList.vue'
 import TraineeList from '../views/staff/TraineeList.vue'
 import HomePage from '../views/HomePage.vue'
 import Setting from '../views/Setting.vue'
-import createNewStaff from '../views/admin/createNewStaff---Test.vue'
 import Topic from '../views/staff/Topics.vue'
 import Course from '../views/staff/Courses.vue'
 import Category from '../views/staff/Categories.vue'
+
 
 Vue.use(VueRouter)
 
@@ -95,6 +97,14 @@ const routes = [{
                 component: Category,
                 meta: {
                     title: 'Category'
+                }
+            },
+            {
+                path: 'adminProfile',
+                name: 'adminProfile',
+                component: adminProfile,
+                meta: {
+                    title: 'adminProfile'
                 }
             },
         ]

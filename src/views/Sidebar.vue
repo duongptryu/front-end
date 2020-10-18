@@ -35,6 +35,9 @@
                     <router-link to='/ManagementSystem/Category'><i class="icofont-notepad"></i> Categories </router-link>
                 </li>
                 <li>
+                    <router-link to='/ManagementSystem/adminProfile'><i class="icofont-notepad"></i> Admin's Profile </router-link>
+                </li>
+                <li>
                     <router-link to='/ManagementSystem/createNewStaff'><i class="icofont-bird-wings"></i>  Add Member </router-link>
                 </li>
                 <li>
