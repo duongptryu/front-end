@@ -101,7 +101,7 @@ export default {
           text: "Trainer"
         }
       ],
-      value: "trainee-login",
+      value: "admin-login",
       info: null
     };
   },
@@ -114,13 +114,25 @@ export default {
         }
       }
       axios
-        .post(`http://7b91e4ee3ba9.ngrok.io/login/${role}`, this.postBody, {
+        .post(`http://localhost:3000/login/${role}`, this.postBody, {
           withCredentials: true,
           mode: "cors",
           headers: { "Content-Type": "application/json" },
         })
-        .then(() => {
-          this.$router.push({path: '/'});
+        .then((response) => {
+          const permission = response.data.role;
+          sessionStorage.setItem('role',permission)
+          if(permission === 'admin'){
+            this.$router.push({path: '/admin'});
+          }else if(permission === 'staff'){
+             this.$router.push({path: '/staff'});
+          }else if(permission === 'trainee'){
+            this.$router.push({path: '/trainee'});
+          }else if(permission === 'trainer'){
+            this.$router.push({path: '/trainer'});
+          }else{
+            this.$router.push({path: '/'});
+          }
         }).catch(() => {
               this.info = 'Incorrect username or password';
         });

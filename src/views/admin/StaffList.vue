@@ -128,9 +128,15 @@ export default {
       }
     },
   mounted(){
-       axios.get("http://7b91e4ee3ba9.ngrok.io/admin/staff").then(
+       axios.get("http://localhost:3000/admin/staff", {
+         withCredentials: true,
+          mode: "cors",
+          headers: { "Content-Type": "application/json" }
+       }).then(
         response => {
           this.items = response.data
+        }).catch(() => {
+          this.$router.push({path: '/login'});
         })
   },computed: {
       resultQuery() {

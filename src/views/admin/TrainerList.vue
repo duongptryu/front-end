@@ -129,7 +129,7 @@ export default {
       }
     },
   mounted(){
-       axios.get("http://localhost:3000/staff/trainers", {
+       axios.get("http://localhost:3000/admin/trainers",{
          withCredentials: true,
           mode: "cors",
           headers: { "Content-Type": "application/json" }

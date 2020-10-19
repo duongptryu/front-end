@@ -20,8 +20,8 @@
 
 <script>
 
-import Topbar from '../views/Topbar';
-import Sidebar from '../views/Sidebar';
+import Topbar from '../Topbar';
+import Sidebar from '../Sidebar';
 // import Footer from '../views/Footer'
 
 export default {
@@ -58,7 +58,7 @@ export default {
     background-color: #ffffff;
   }
 
-  @import '../assets/css/ManagementSystem.css';
+  @import '../../assets/css/ManagementSystem.css';
 </style>
 
 
