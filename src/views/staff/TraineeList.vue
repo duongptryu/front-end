@@ -119,6 +119,7 @@
 import axios from 'axios';
 export default {
   name: 'StaffList',
+  url: "localhost:3000",
     data() {
       return {
         keyword: '',
@@ -129,7 +130,7 @@ export default {
       }
     },
   mounted(){
-       axios.get("http://localhost:3000/staff/trainees", {
+       axios.get(`${this.url}/staff/trainees`, {
          withCredentials: true,
           mode: "cors",
           headers: { "Content-Type": "application/json" }

@@ -86,6 +86,7 @@ export default {
   name: 'StaffList',
     data() {
       return {
+         url: "localhost:3000",
         keyword: '',
         items: [],
         selectAll: false,
@@ -94,7 +95,7 @@ export default {
       }
     },
   mounted(){
-       axios.get("http://f004cb675dbb.ngrok.io/admin/staff", {
+       axios.get(`${this.url}/admin/staff`, {
          withCredentials: true,
           mode: "cors",
           headers: { "Content-Type": "application/json" }
@@ -102,9 +103,9 @@ export default {
         response => {
           this.items = response.data
         })
-        // .catch(() => {
-        //   this.$router.push({path: '/login'});
-        // })
+        .catch(() => {
+          this.$router.push({path: '/login'});
+        })
   },computed: {
       resultQuery() {
         if(this.keyword) {

@@ -87,6 +87,7 @@ export default {
   name: 'StaffList',
     data() {
       return {
+         url: "localhost:3000",
         keyword: '',
         items: [],
         selectAll: false,
@@ -95,7 +96,7 @@ export default {
       }
     },
   mounted(){
-       axios.get("http://f004cb675dbb.ngrok.io/admin/trainers",{
+       axios.get(`${this.url}/admin/trainers`,{
          withCredentials: true,
           mode: "cors",
           headers: { "Content-Type": "application/json" }

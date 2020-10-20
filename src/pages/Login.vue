@@ -79,6 +79,7 @@ export default {
   },
   data() {
     return {
+      url: 'http://f004cb675dbb.ngrok.io',
       postBody: {
         username: '',
         password: '',
@@ -113,8 +114,9 @@ export default {
           role = this.options[i].value;    
         }
       }
+      console.log(this.url)
       axios
-        .post(`http://localhost:3000/login/${role}`, this.postBody, {
+        .post(`${this.url}/login/${role}`, this.postBody, {
           withCredentials: true,
           mode: "cors",
           headers: { "Content-Type": "application/json" },

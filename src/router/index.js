@@ -14,7 +14,6 @@ import editAdminProfile from "../views/admin/admin_editProfile.vue"
 import staffProfile from "../views/staff/StaffProfile.vue";
 import traineeProfile from "../views/trainee/trainee_Profile.vue";
 import trainerProfile from "../views/trainer/trainer_Profile.vue";
-import createNewMember from "../views/admin/createMember.vue";
 import TrainerList_staff from "../views/staff/TrainerList.vue";
 import TraineeList_staff from "../views/staff/TraineeList.vue";
 import TrainerList_admin from "../views/admin/TrainerList.vue";
@@ -42,16 +41,16 @@ const routes = [{
         redirect: { name: "AdminHomePage" },
         name: "adminHomePage",
         component: adminDashboard,
-        // beforeEnter:(to, from, next) => {
-        //   const role = sessionStorage.getItem('role')
-        //   if(!role){
-        //     next({path: '/'})
-        //   }
-        //   if(role !== 'admin'){
-        //     next({path: '/login'})
-        //   }
-        //   next()
-        // },
+        beforeEnter:(to, from, next) => {
+          const role = sessionStorage.getItem('role')
+          if(!role){
+            next({path: '/'})
+          }
+          if(role !== 'admin'){
+            next({path: '/login'})
+          }
+          next()
+        },
         meta: {
             title: "Dashboard - EduManagementSystem - Admin",
         },
@@ -94,16 +93,7 @@ const routes = [{
                 meta: {
                     title: "Setting - EduManagementSystem - Admin",
                 },
-            },
-            {
-                path: "createNewMember",
-                name: "createNewMember",
-                component: createNewMember,
-                meta: {
-                    title: "createNewMember",
-                },
-            },
-            {
+            },            {
                 path: "adminProfile",
                 name: "adminProfile",
                 component: adminProfile,

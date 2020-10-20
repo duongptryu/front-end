@@ -10,33 +10,71 @@
                         <p style="color: white">Adminstrator</p> 
                     </div>
                 </li>
-                <li>
-                    <router-link to='/ManagementSystem/Staff-List'><i class="icofont-notepad"></i> Staff List</router-link>
+
+                <li v-if="admin">
+                    <router-link to='/admin/staff-list'><i class="icofont-notepad"></i> Staff List</router-link>
                 </li>
-                <li>
-                    <router-link to='/ManagementSystem/Trainer-List'><i class="icofont-notepad"></i> Trainer List</router-link>
+
+
+                <li v-if="admin">
+                    <router-link to='/admin/trainer-list'><i class="icofont-notepad"></i> Trainer List</router-link>
                 </li>
-                <li>
-                    <router-link to='/ManagementSystem/Trainee-List'><i class="icofont-notepad"></i> Trainee List</router-link>
+
+                 <li v-if="staff">
+                    <router-link to='/staff/trainer-list'><i class="icofont-notepad"></i> Trainer List</router-link>
                 </li>
-                <li hidden>
-                    <router-link to='/ManagementSystem/Topic'><i class="icofont-notepad"></i> Topics </router-link>
+
+
+
+                <li v-if="admin">
+                    <router-link to='/admin/trainee-list'><i class="icofont-notepad"></i> Trainee List</router-link>
                 </li>
-                <li hidden>
-                    <router-link to='/ManagementSystem/Course'><i class="icofont-notepad"></i> Courses </router-link>
+
+                <li v-if="staff">
+                    <router-link to='/staff/trainee-list'><i class="icofont-notepad"></i> Trainee List</router-link>
                 </li>
-                <li hidden>
-                    <router-link to='/ManagementSystem/Category'><i class="icofont-notepad"></i> Categories </router-link>
+
+
+                <li v-if="staff">
+                    <router-link to='/staff/topic'><i class="icofont-notepad"></i> Topics </router-link>
                 </li>
-                <li>
-                    <router-link to='/ManagementSystem/adminProfile'><i class="icofont-notepad"></i> Admin's Profile </router-link>
+
+
+
+                <li v-if="staff">
+                    <router-link to='/staff/course'><i class="icofont-notepad"></i> Courses </router-link>
                 </li>
-                <li>
-                    <router-link to='/ManagementSystem/createNewStaff'><i class="icofont-bird-wings"></i>  Add Member </router-link>
+
+
+                <li v-if="staff">
+                    <router-link to='/staff/category'><i class="icofont-notepad"></i> Categories </router-link>
                 </li>
+
+
+
+                <li v-if="admin">
+                    <router-link to='/admin/adminProfile'><i class="icofont-notepad"></i>Profile </router-link>
+                </li>
+
+                
+                <li v-if="staff">
+                    <router-link to='/staff/staffProfile'><i class="icofont-notepad"></i>Profile </router-link>
+                </li >
+
+                
+                <li v-if="trainee">
+                    <router-link to='/trainee/traineeProfile'><i class="icofont-notepad"></i>Profile </router-link>
+                </li>
+
+                
+                <li v-if="trainer">
+                    <router-link to='/trainer/trainerProfile'><i class="icofont-notepad"></i>Profile </router-link>
+                </li>
+
                 <li>
                     <router-link to='/ManagementSystem/setting'><i class="icofont-settings-alt"></i> Setting</router-link>
                 </li>
+
                  <li>
                     <router-link to='/login'><i class="icofont-logout"></i> Logout</router-link>
                 </li>
@@ -47,7 +85,40 @@
 
 <script>
 export default {
-    name: 'Sidebar'
+    name: 'Sidebar',
+    admin: false,
+    staff: false,
+    trainee: false,
+    trainer: false,
+    created(){
+        const role = sessionStorage.getItem('role')
+        if(role === 'admin'){
+            this.admin = true
+            this.staff = false
+            this.trainee = false
+            this.trainer = false
+        }else if(role === 'staff') {
+            this.admin = false
+            this.staff = true
+            this.trainee = false
+            this.trainer = false
+        }else if(role === 'trainee') {
+            this.admin = false
+            this.staff = false
+            this.trainee = true
+            this.trainer = false
+        } else if (role === 'trainer') {
+            this.admin = false
+            this.staff = false
+            this.trainee = true
+            this.trainer = false
+        }else {
+            this.admin = false
+            this.staff = false
+            this.trainee = false
+            this.trainer = false
+        }
+    }
 }
 </script>
 

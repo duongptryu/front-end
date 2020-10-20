@@ -121,6 +121,7 @@ export default {
   name: 'StaffList',
     data() {
       return {
+        url: "localhost:3000",
         keyword: '',
         items: [],
         selectAll: false,
@@ -129,7 +130,7 @@ export default {
       }
     },
   mounted(){
-       axios.get("http://localhost:3000/admin/trainees",{
+       axios.get(`${this.url}/admin/trainees`,{
             withCredentials: true,
           mode: "cors",
           headers: { "Content-Type": "application/json" }
