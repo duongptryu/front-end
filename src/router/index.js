@@ -44,11 +44,8 @@ const routes = [
     component: adminDashboard,
     beforeEnter:(to, from, next) => {
       const role = sessionStorage.getItem('role')
-      if(!role){
-        next({path: '/'})
-      }
       if(role !== 'admin'){
-        next({path: '/login'})
+        next({path: '/'})
       }
       next()
     },
@@ -122,11 +119,8 @@ const routes = [
     component: staffDashboard,
     beforeEnter:(to, from, next) => {
       const role = sessionStorage.getItem('role')
-      if(!role){
-        next({path: '/'})
-      }
       if(role !== 'staff'){
-        next({path: '/login'})
+        next({path: '/'})
       }
       next()
     },
@@ -201,11 +195,8 @@ const routes = [
     component: traineeDashboard,
     beforeEnter:(to, from, next) => {
       const role = sessionStorage.getItem('role')
-      if(!role){
-        next({path: '/'})
-      }
       if(role !== 'trainee'){
-        next({path: '/login'})
+        next({path: '/'})
       }
       next()
     },
@@ -240,11 +231,8 @@ const routes = [
     component: trainerDashboard,
     beforeEnter:(to, from, next) => {
       const role = sessionStorage.getItem('role')
-      if(!role){
-        next({path: '/'})
-      }
       if(role !== 'trainer'){
-        next({path: '/login'})
+        next({path: '/'})
       }
       next()
     },

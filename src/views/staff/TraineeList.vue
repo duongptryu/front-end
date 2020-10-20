@@ -117,7 +117,7 @@
 
 <script>
 import axios from 'axios';
-export default {
+export default {s
   name: 'StaffList',
     data() {
       return {
