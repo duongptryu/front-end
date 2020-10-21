@@ -21,7 +21,7 @@
           <div class="col-sm">
             <div class="card search">
                 <center>
-                  <h4 id="title">aLazyFox</h4>
+                  <h5 id="title">It always seems impossible until it's done. <br> (Nelson Mandela)</h5>
                   <b-container class="bv-example-row">
                     <b-row>
                       <b-col class="col-8"><b-form-input v-model="keyword" type="text" debounce="500" placeholder="Search Question" id="keyword-input"></b-form-input></b-col>
@@ -35,9 +35,9 @@
 
         <div class="card question-list">
           <div class="title-card">
-            <h4>Staff List</h4>
+            <h4>Trainee List</h4>
+            <button class="btn btn-success">Create Trainee</button>
           </div>
-          <button class="btn btn-success" @click="createStaff()">Create Staff</button>
             <div class="questionList">
               <table v-if="items.length" class="table table-hover">
                 <thead>
@@ -78,40 +78,6 @@
         </div>
       </div>
     </div>
-    <!--  -->
-
-    <!--  -->
-    <!-- ----------------------------------------------------------------- -->
-    <!-- <table class="table">
-        <thead class="thead-dark">
-            <tr class="text-center">
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            </tr>
-            <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            </tr>
-            <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-            </tr>
-        </tbody>
-    </table> -->
   </div>
 </template>
 
@@ -121,7 +87,7 @@ export default {
   name: 'StaffList',
     data() {
       return {
-        url: "localhost:3000",
+        url: "http://f004cb675dbb.ngrok.io",
         keyword: '',
         items: [],
         selectAll: false,
@@ -137,9 +103,10 @@ export default {
        }).then(
         response => {
           this.items = response.data
-        }).catch(() => {
-          this.$router.push({path: '/login'});
         })
+        // .catch(() => {
+        //   this.$router.push({path: '/login'});
+        // })
   },computed: {
       resultQuery() {
         if(this.keyword) {

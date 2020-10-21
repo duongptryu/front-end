@@ -14,7 +14,7 @@
                 <div class="col-md-6">
                     <div class="profile-head">
                                 <h5>
-                                    Kshiti Ghelani
+                                    Nguyen Van A
                                     <!-- phai co binding data vao day de hien thi ten -->
                                 </h5>
                                 <h6>

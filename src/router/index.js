@@ -38,30 +38,31 @@ const routes = [{
     //=================================admin=================================
     {
         path: "/admin",
-        redirect: { name: "AdminHomePage" },
+        redirect: { name: "adminProfile" },
         name: "adminHomePage",
         component: adminDashboard,
-        beforeEnter:(to, from, next) => {
-          const role = sessionStorage.getItem('role')
-          if(!role){
-            next({path: '/'})
-          }
-          if(role !== 'admin'){
-            next({path: '/login'})
-          }
-          next()
-        },
+        // beforeEnter: (to, from, next) => {
+        //     const role = sessionStorage.getItem('role')
+        //     if (!role) {
+        //         next({ path: '/' })
+        //     }
+        //     if (role !== 'admin') {
+        //         next({ path: '/login' })
+        //     }
+        //     next()
+        // },
         meta: {
             title: "Dashboard - EduManagementSystem - Admin",
         },
-        children: [{
-                path: "home-page",
-                name: "AdminHomePage",
-                component: HomePage,
-                meta: {
-                    title: "HomePage - EduManagementSystem - Admin",
-                },
-            },
+        children: [
+            // {
+            //     path: "home-page",
+            //     name: "AdminHomePage",
+            //     component: HomePage,
+            //     meta: {
+            //         title: "HomePage - EduManagementSystem - Admin",
+            //     },
+            // },
             {
                 path: "Staff-list",
                 name: "StaffList",
@@ -93,7 +94,8 @@ const routes = [{
                 meta: {
                     title: "Setting - EduManagementSystem - Admin",
                 },
-            },            {
+            },
+            {
                 path: "adminProfile",
                 name: "adminProfile",
                 component: adminProfile,
@@ -115,29 +117,30 @@ const routes = [{
     //=========================Staff============================
     {
         path: "/staff",
-        redirect: { name: "staffHomePage" },
+        redirect: { name: "staffProfile" },
         component: staffDashboard,
-        beforeEnter: (to, from, next) => {
-            const role = sessionStorage.getItem('role')
-            if (!role) {
-                next({ path: '/' })
-            }
-            if (role !== 'staff') {
-                next({ path: '/login' })
-            }
-            next()
-        },
+        // beforeEnter: (to, from, next) => {
+        //     const role = sessionStorage.getItem('role')
+        //     if (!role) {
+        //         next({ path: '/' })
+        //     }
+        //     if (role !== 'staff') {
+        //         next({ path: '/login' })
+        //     }
+        //     next()
+        // },
         meta: {
             title: "Dashboard - EduManagementSystem - Staff",
         },
-        children: [{
-                path: "home-page",
-                name: "staffHomePage",
-                component: HomePage,
-                meta: {
-                    title: "HomePage - EduManagementSystem - Staff",
-                },
-            },
+        children: [
+            // {
+            //     path: "home-page",
+            //     name: "staffHomePage",
+            //     component: HomePage,
+            //     meta: {
+            //         title: "HomePage - EduManagementSystem - Staff",
+            //     },
+            // },
             {
                 path: "trainer-list",
                 name: "TrainerList",
@@ -179,11 +182,11 @@ const routes = [{
                 },
             },
             {
-                path: "profile/me",
-                name: "staff-profile",
+                path: "staffProfile",
+                name: "Staff Profile",
                 component: staffProfile,
                 meta: {
-                    title: "Profile",
+                    title: "staffProfile",
                 },
             },
         ],
@@ -195,16 +198,16 @@ const routes = [{
         redirect: { name: "TraineeHomePage" },
         name: "trainee",
         component: traineeDashboard,
-        beforeEnter: (to, from, next) => {
-            const role = sessionStorage.getItem('role')
-            if (!role) {
-                next({ path: '/' })
-            }
-            if (role !== 'trainee') {
-                next({ path: '/login' })
-            }
-            next()
-        },
+        // beforeEnter: (to, from, next) => {
+        //     const role = sessionStorage.getItem('role')
+        //     if (!role) {
+        //         next({ path: '/' })
+        //     }
+        //     if (role !== 'trainee') {
+        //         next({ path: '/login' })
+        //     }
+        //     next()
+        // },
         meta: {
             title: "Dashboard - EduManagementSystem - Trainee",
         },
@@ -230,32 +233,33 @@ const routes = [{
     //======================================trainer========================================
     {
         path: "/trainer",
-        redirect: { name: "TrainerHomePage" },
+        redirect: { name: "trainerProfile" },
         name: "trainer",
         component: trainerDashboard,
-        beforeEnter: (to, from, next) => {
-            const role = sessionStorage.getItem('role')
-            if (!role) {
-                next({ path: '/' })
-            }
-            if (role !== 'trainer') {
-                next({ path: '/login' })
-            }
-            next()
-        },
+        // beforeEnter: (to, from, next) => {
+        //     const role = sessionStorage.getItem('role')
+        //     if (!role) {
+        //         next({ path: '/' })
+        //     }
+        //     if (role !== 'trainer') {
+        //         next({ path: '/login' })
+        //     }
+        //     next()
+        // },
         meta: {
             title: "Dashboard - EduManagementSystem - Trainer",
         },
-        children: [{
-                path: "home-page",
-                name: "TrainerHomePage",
-                component: HomePage,
-                meta: {
-                    title: "HomePage - EduManagementSystem - Trainer",
-                },
-            },
+        children: [
+            // {
+            //     path: "home-page",
+            //     name: "TrainerHomePage",
+            //     component: HomePage,
+            //     meta: {
+            //         title: "HomePage - EduManagementSystem - Trainer",
+            //     },
+            // },
             {
-                path: "profile/me",
+                path: "trainerProfile",
                 name: "Trainer-profile",
                 component: trainerProfile,
                 meta: {
@@ -292,7 +296,6 @@ router.beforeEach((to, from, next) => {
     if (to.meta.title) {
         document.title = to.meta.title;
     }
-
     next();
 });
 

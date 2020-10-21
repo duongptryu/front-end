@@ -13,7 +13,7 @@
                 <router-view></router-view>
             </div>
         </div>
-        <!-- <Footer/> -->
+        <Footer/>
         <!-- /#page-content-wrapper -->
     </div>  
 </template>
@@ -22,14 +22,14 @@
 
 import Topbar from '../Topbar';
 import Sidebar from '../Sidebar';
-// import Footer from '../views/Footer'
+import Footer from '../Footer'
 
 export default {
     name: 'home',
     components:{
         Topbar,
         Sidebar,
-        // Footer
+        Footer
     },
     beforeCreate: function() {
       document.body.className = 'ManagementSystem'

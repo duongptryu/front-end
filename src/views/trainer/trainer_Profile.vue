@@ -1,0 +1,194 @@
+<template>
+    <div class="container emp-profile">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-img">
+                    <img src="https://1.bp.blogspot.com/-m3UYn4_PEms/Xnch6mOTHJI/AAAAAAAAZkE/GuepXW9p7MA6l81zSCnmNaFFhfQASQhowCLcBGAsYHQ/s1600/Cach-Lam-Avatar-Dang-Hot%2B%25281%2529.jpg"
+                        alt="" />
+                    <div class="file btn btn-primary">
+                        Change Photo
+                        <input type="file" name="file" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="profile-head">
+                    <h5>
+                        Truong Cong Doan
+                    </h5>
+                    <h6>
+                        University of Greenwich
+                    </h6>
+                    <p class="proile-major">Major: <span>Inrformation Technology</span></p>
+                    <p class="profile-id-student">Teacher ID: <span>GCH18395</span></p>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                                aria-controls="home" aria-selected="true">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                                aria-controls="profile" aria-selected="false">Timeline</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#mycourse" role="tab"
+                                aria-controls="mycourse" aria-selected="false">My Course</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="profile-course ">
+                        <p>Course Detail</p>
+                        <div class="list-course">
+                            <a href="">1670 - Computing Research</a><br />
+                            <a href="">1618 - Programing</a><br />
+                            <a href="">1623 - Security </a> <br>
+                            <a href="">1625 - Professional Pratice </a> <br>
+                        </div>
+                        <div class="text-center">
+                            <a class="btn btn-light " href="#mycourse">
+                                Read More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-8">
+                <div class="tab-content profile-tab" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Teacher ID</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>GCH18395</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Teacher Name</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Truong Cong Doan</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Work Place</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Teacher</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Work Place</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Teacher</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Age</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>35</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Email</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>quandh13@fpt.edu.vn</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Phone</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>0985306395</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Address</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Ha Noi</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Time table  -->
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        Time Table
+                    </div>
+
+
+                    <!-- Course -->
+
+                    <div class="tab-pane fade" id="mycourse" role="tabpanel" aria-labelledby="profile-tab">
+
+                        <ul class="list-group my-course">
+                            <!-- Topic -->
+                            <div class="col-md-10">
+                                <div class="panel-group" id="accordion">
+                                    <div class="list-group-item " role="tab">
+                                        <div class="panel-heading">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                                                1670 - Computing Research</a>
+                                        </div>
+                                        <div id="collapse1" class="panel-collapse collapse in">
+                                            <ul class="list-group list-group-flush my-topic">
+                                                <li class="list-group-item"><a href="">Computing Research</a>
+                                                </li>
+                                                <li class="list-group-item"><a href="">Programing</a></li>
+                                                <li class="list-group-item"><a href="">Security </a> </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="list-group-item" role="tab">
+                                        <div class="panel-heading">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                                                1639 - Application Development</a>
+                                        </div>
+                                        <div id="collapse2" class="panel-collapse collapse in">
+                                            <ul class="list-group list-group-flush my-topic">
+                                                <li class="list-group-item"><a href="">Computing Research</a>
+                                                </li>
+                                                <li class="list-group-item"><a href="">Programing</a></li>
+                                                <li class="list-group-item"><a href="">Security </a> </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ul>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+</template>
+
+<style scoped src="../../assets/css/trainer.css"></style>

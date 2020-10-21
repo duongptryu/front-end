@@ -7,7 +7,7 @@
                         <img src="../assets/img/avatar1.jpg" alt="">
                     </div>
                     <div class="avatar-name">
-                        <p style="color: white">Adminstrator</p> 
+                        <p style="color: white">Duongryu - Staff</p> 
                     </div>
                 </li>
 
@@ -61,11 +61,13 @@
                     <router-link to='/staff/staffProfile'><i class="icofont-notepad"></i>Profile </router-link>
                 </li >
 
-                
+                <!-- Trainee -->
+
                 <li v-if="trainee">
                     <router-link to='/trainee/traineeProfile'><i class="icofont-notepad"></i>Profile </router-link>
                 </li>
 
+                <!-- Trainer -->
                 
                 <li v-if="trainer">
                     <router-link to='/trainer/trainerProfile'><i class="icofont-notepad"></i>Profile </router-link>

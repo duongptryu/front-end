@@ -35,7 +35,8 @@
 
         <div class="card question-list">
           <div class="title-card">
-            <h4>Staff List</h4>
+            <h4 class="position-center">Staff List</h4>
+            <button class="btn btn-success">Create Staff</button>
           </div>
             <div class="questionList">
               <table v-if="items.length" class="table table-hover">
@@ -86,7 +87,7 @@ export default {
   name: 'StaffList',
     data() {
       return {
-         url: "localhost:3000",
+        url: "http://f004cb675dbb.ngrok.io",
         keyword: '',
         items: [],
         selectAll: false,
@@ -103,9 +104,9 @@ export default {
         response => {
           this.items = response.data
         })
-        .catch(() => {
-          this.$router.push({path: '/login'});
-        })
+        // .catch(() => {
+        //   this.$router.push({path: '/login'});
+        // })
   },computed: {
       resultQuery() {
         if(this.keyword) {
