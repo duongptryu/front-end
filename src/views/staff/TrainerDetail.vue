@@ -89,6 +89,16 @@
                                 <b-form-group
                                 label-for="course-new"
                                 invalid-feedback="Success">
+                                  <b-row class="decor">
+                                      <b-col class="col-4"><span>Trainer Username</span></b-col>
+                                      <b-col class="col-8">
+                                          <b-form-input
+                                          id="update-trainer-username"
+                                          v-model="trainerUsername"
+                                          v-bind:value="trainerUsername"
+                                          required></b-form-input>
+                                      </b-col>
+                                  </b-row>
                                     <b-row class="decor">
                                         <b-col class="col-4"><span>Trainer Name</span></b-col>
                                         <b-col class="col-8">
@@ -177,7 +187,7 @@ export default {
         trainerAddress: '',
         trainerWorkplace: '',
         trainerTopic: '',
-        
+        trainerUsername: '',
       }
     },
   mounted(){

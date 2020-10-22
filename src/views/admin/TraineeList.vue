@@ -162,8 +162,6 @@ export default {
         selectAll: false,
         selected: [],
         alertMessage: 'Calling APIs Successful !',
-        trainerName: '',
-        trainerPassword: '',
         update: {
           id: '',
           postBody: {
