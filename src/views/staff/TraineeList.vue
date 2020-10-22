@@ -35,8 +35,44 @@
 
         <div class="card question-list">
           <div class="title-card">
-            <h4>Trainee List</h4>
-            <button class="btn btn-success">Create Trainee</button>
+            <h4 class="position-center">Trainee List</h4>
+            <b-col><b-button @click="creteTrainer()" v-b-modal.modal-prevent-closing variant="success" class="btnC" >Create Trainee</b-button></b-col>
+            <!-- Form Popup for CREATE STAFF -->
+              <b-modal
+                id="modal-prevent-closing"
+                ref="modal"
+                title="CREATE NEW TRAINEE"
+                @show="resetModal"  
+                @hidden="resetModal"
+                @ok="handleOk"
+                ok-title="Submit">
+
+                <form ref="form" @submit.stop.prevent="handleSubmit">
+                  <b-form-group
+                    label-for="course-new"
+                    invalid-feedback="Success">
+                      <b-row>
+                        <b-col class="col-4"><span>Trainee Username</span></b-col>
+                        <b-col class="col-8">
+                          <b-form-input
+                            id="create-trainee-name"
+                            v-model="traineeName"
+                            required></b-form-input>
+                        </b-col>
+                      </b-row>
+                      <b-row>
+                        <b-col class="col-4"> <span>Trainee Password:</span></b-col>
+                        <b-col class="col-8">
+                          <b-form-input
+                            id="create-trainee-password"
+                            v-model="traineePassword"
+                            required>
+                          </b-form-input>
+                        </b-col>
+                      </b-row>
+                  </b-form-group>
+                </form>
+              </b-modal>
           </div>
             <div class="questionList">
               <table v-if="items.length" class="table table-hover">
@@ -48,9 +84,9 @@
                         <input type="checkbox" v-model="selectAll" @click="select">
                       </label>
                     </th>
-                    <th class="text-center">User_Name</th>
+                    <th class="text-center">Username</th>
                     <th class="text-center">Password</th>
-                    <th class="text-center">Role</th>
+                    <th class="text-center">Name</th>
                     <th class="text-center">Option</th>
                   </tr>
                 </thead>
@@ -64,12 +100,10 @@
                     </td>
                     <td>{{ item.username }}</td>
                     <td>{{ item.password}}</td>
-                    <td>{{ item.role }}</td>
-                    <!-- <td v-if="item.staffStatus">active</td>
-                    <td v-else-if="!item.staffStatus">non-active</td> -->
-                    <td> 
-                      <button class="btn btn-primary" @click="update()">Update</button>
-                      <button class="btn btn-danger" @click="remove(result.item._id)">Delete</button> 
+                    <td>{{ item.name}}</td>
+                    <td>                       
+                    <button class="btn btn-danger" @click="remove(item._id)">Delete</button>   
+                    <button class="btn btn-success"><router-link to='/staff/traineeDetail' style="color:#ffffff; text-decoration: none">Details</router-link></button>
                     </td>
                   </tr>
                 </tbody>
@@ -87,17 +121,19 @@ export default {
   name: 'StaffList',
     data() {
       return {
-        url: 'http://localhost:3000',
+        url: 'http://deb6b3069831.ngrok.io',
         keyword: '',
         items: [],
         selectAll: false,
         selected: [],
-        alertMessage: 'Calling APIs Successful !'
+        alertMessage: 'Calling APIs Successful !',
+        traineeName: '',
+        traineePassword: '',
       }
     },
   mounted(){
-       axios.get(`${this.url}/admin/trainees`,{
-            withCredentials: true,
+       axios.get(`${this.url}/admin/trainees`, {
+          withCredentials: true,
           mode: "cors",
           headers: { "Content-Type": "application/json" }
        }).then(
@@ -107,7 +143,8 @@ export default {
         // .catch(() => {
         //   this.$router.push({path: '/login'});
         // })
-  },computed: {
+  },
+  computed: {
       resultQuery() {
         if(this.keyword) {
           return this.items.filter((item) => {
@@ -134,8 +171,57 @@ export default {
         console.log(this.selected)
       },
 
+      remove(id) {
+        axios.delete(`${this.url}/admin/delete-trainee/` + id, {
+          withCredentials: true,
+          mode: "cors",
+          headers: { "Content-Type": "application/json" }
+        }).then( () => {
+          window.alert("Delete Successful !");
+          window.location.reload();
+        })
+      },
+
       createStaff() {
 
+      },
+
+       checkFormValidity() {
+        const valid = this.$refs.form.checkValidity()
+        this.nameState = valid
+        return valid
+      },
+
+      resetModal() {
+        this.name = ''
+        this.nameState = null
+      },
+
+      handleOk(bvModalEvt, id) {
+        axios.put(`${this.url}/admin/trainer?id= ` + id, {
+          withCredentials: true,
+          mode: "cors",
+          headersheaders: { "Content-Type": "application/json" }
+        }).then(
+        //  chố này chịu :0
+        )
+        // Prevent modal from closing
+        bvModalEvt.preventDefault()
+        // Trigger submit handler
+        this.handleSubmit()
+      },
+
+      handleSubmit() {
+        // Exit when the form isn't valid
+        if (!this.checkFormValidity()) {
+          return
+        }
+        // Push the name to submitted names
+        this.submittedNames.push(this.name)
+        // Hide the modal manually
+        this.$nextTick(() => {
+          this.$bvModal.hide('modal-prevent-closing')
+        })
       }
   }
 }

@@ -41,7 +41,7 @@
             <b-modal
             id="modal-prevent-closing"
             ref="modal"
-            title="CREATE NEW Topic"
+            title="CREATE"
             @show="resetModal"
             @hidden="resetModal"
             @ok="handleOk">
@@ -49,10 +49,11 @@
             <form ref="form" @submit.stop.prevent="handleSubmit">
               <b-form-group
                 :state="nameState"
+                label="Create New Course"
                 label-for="course-new"
                 invalid-feedback="Success">
                   <b-row>
-                    <b-col class="col-4"><span>Code Topic:</span></b-col>
+                    <b-col class="col-4"><span>Code course:</span></b-col>
                     <b-col class="col-8">
                       <b-form-input
                         id="code-course"
@@ -62,7 +63,7 @@
                     </b-col>
                   </b-row>
                   <b-row>
-                    <b-col class="col-4"> <span>Name Topic:</span></b-col>
+                    <b-col class="col-4"> <span>Name course:</span></b-col>
                     <b-col class="col-8">
                       <b-form-input
                         id="name-course"
@@ -83,7 +84,7 @@
                         </b-form-input>
                       </b-col>
                   </b-row>         
-                  <b-form-group label="Courses:">
+                  <b-form-group label="Categories:">
                     <b-form-checkbox-group id="checkbox-group-2" v-model="selected" name="flavour-2">
                       <b-form-checkbox value="orange">Orange</b-form-checkbox>
                       <b-form-checkbox value="apple">Apple</b-form-checkbox>
@@ -106,10 +107,45 @@
                         <input type="checkbox" v-model="selectAll" @click="select">
                       </label>
                     </th>
-                    <th class="text-center">User_Name</th>
-                    <th class="text-center">Password</th>
-                    <th class="text-center">Role</th>
+                    <th class="text-center">Topic Name</th>
+                    <th class="text-center">Description</th>
                     <th class="text-center">Option</th>
+                    <!-- Form Popup for UPDATE TOPIC-->
+                      <b-modal
+                      id="modal-prevent-closing1"
+                      ref="modal"
+                      title="UPDATE TOPIC INFO"
+                      @show="resetModal"  
+                      @hidden="resetModal"
+                      @ok="handleOk"
+                      ok-title="Submit">
+
+                        <form ref="form" @submit.stop.prevent="handleSubmit">
+                          <b-form-group
+                            label-for="course-new"
+                            invalid-feedback="Success">
+                              <b-row>
+                                <b-col class="col-4"><span>Topic Name</span></b-col>
+                                <b-col class="col-8">
+                                  <b-form-input
+                                    id="update-trainee-name"
+                                    v-model="traineefName"
+                                    v-bind:value="traineefName"
+                                    required></b-form-input>
+                                </b-col>
+                              </b-row>
+                              <b-row>
+                                <b-col class="col-4"><span>Topic Description</span></b-col>
+                                <b-col class="col-8">
+                                  <b-form-input
+                                    id="update-trainee-password"
+                                    v-model="traineePassword"
+                                    required></b-form-input>
+                                </b-col>
+                                </b-row>
+                          </b-form-group>
+                        </form>
+                      </b-modal>
                   </tr>
                 </thead>
                 <tbody class="tb-body">
@@ -120,14 +156,14 @@
                         <input v-model="selected" :value="item._id" type="checkbox" @change="show">
                       </label>
                     </td>
-                    <td>{{ item.username }}</td>
-                    <td>{{ item.password}}</td>
-                    <td>{{ item.role }}</td>
+                    <td>{{ item.topicName }}</td>
+                    <td>{{ item.description}}</td>
                     <!-- <td v-if="item.staffStatus">active</td>
                     <td v-else-if="!item.staffStatus">non-active</td> -->
                     <td> 
-                      <button class="btn btn-primary" @click="update()">Update</button>
+                      <b-button @click="getData(item._id)" v-b-modal.modal-prevent-closing1 variant="warning" class="btnC" >Update</b-button>
                       <button class="btn btn-danger" @click="remove(result.item._id)">Delete</button> 
+                      <button class="btn btn-success"><router-link to='/staff/CourseDetail' style="color:#ffffff; text-decoration: none">Details</router-link></button>
                     </td>
                   </tr>
                 </tbody>
@@ -145,7 +181,7 @@ export default {
   name: 'StaffList',
     data() {
       return {
-        url: 'http://localhost:3000',
+        url: 'http://deb6b3069831.ngrok.io',
         keyword: '',
         items: [],
         selectAll: false,
@@ -163,7 +199,7 @@ export default {
       }
     },
   mounted(){
-       axios.get(`${this.url}/admin/trainees`,{
+       axios.get(`${this.url}/staff/topics`,{
             withCredentials: true,
           mode: "cors",
           headers: { "Content-Type": "application/json" }
