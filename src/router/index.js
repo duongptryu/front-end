@@ -183,7 +183,7 @@ const routes = [{
             },
             {
                 path: "staffProfile",
-                name: "Staff Profile",
+                name: "staffProfile",
                 component: staffProfile,
                 meta: {
                     title: "staffProfile",
