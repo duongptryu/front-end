@@ -91,7 +91,8 @@
                     <b-col class="col-8">
                       <b-form-input
                         id="create-staff-name"
-                        v-model="staffName"
+                        v-model="update.staffName"
+                        v-bind:value="update.staffName"
                         required></b-form-input>
                     </b-col>
                   </b-row>
@@ -119,8 +120,9 @@
                         <input type="checkbox" v-model="selectAll" @click="select">
                       </label>
                     </th>
-                    <th class="text-center">User_Name</th>
+                    <th class="text-center">Username</th>
                     <th class="text-center">Password</th>
+                    <th class="text-center">Name</th>
                     <th class="text-center">Status</th>
                     <th class="text-center">Option</th>
                   </tr>
@@ -135,6 +137,7 @@
                     </td>
                     <td>{{ item.username }}</td>
                     <td>{{ item.password}}</td>
+                    <td>{{ item.nameStaff}}</td>
                     <td v-if="item.staffStatus">active</td>
                     <td v-else-if="!item.staffStatus">non-active</td>
                     <td>                       
@@ -157,7 +160,7 @@ export default {
   name: 'StaffList',
     data() {
       return {
-        url: 'http://e7f28b033a52.ngrok.io',
+        url: 'http://deb6b3069831.ngrok.io',
         keyword: '',
         items: [],
         selectAll: false,
@@ -166,8 +169,8 @@ export default {
         staffName: '',
         staffPassword: '',
         update: {
-          staffName: 'this is staff name',
-          staffPassword: 'this is staff password'
+          staffName: 'day la staff name',
+          staffPassword: 'day la staff password'
         },
       }
     },
@@ -227,11 +230,10 @@ export default {
           withCredentials: true,
           mode: "cors",
           headersheaders: { "Content-Type": "application/json" }
-        }).then(
-        response => {
-         console(response);
-          this.staffName = this.update.staffName;
-          this.staffPassword = this.update.staffPassword;
+        }).then( response => {
+          this.update.staffName = response.data[0].nameStaff;
+          this.update.staffPassword = response.data[0].password;
+          console.log(this.update.staffName);
         })
       },
 

@@ -126,6 +126,10 @@ button.delete:hover {
     padding-right: 15px;
 }
 
+.decor {
+    padding: 15px;
+}
+
 td {
     text-align: center;
 }

@@ -110,6 +110,42 @@
                     <th class="text-center">Course Name</th>
                     <th class="text-center">Description</th>
                     <th class="text-center">Option</th>
+                    <!-- Form Popup for UPDATE COURSE-->
+                      <b-modal
+                      id="modal-prevent-closing1"
+                      ref="modal"
+                      title="UPDATE COURSE INFO"
+                      @show="resetModal"  
+                      @hidden="resetModal"
+                      @ok="handleOk"
+                      ok-title="Submit">
+
+                        <form ref="form" @submit.stop.prevent="handleSubmit">
+                          <b-form-group
+                            label-for="course-new"
+                            invalid-feedback="Success">
+                              <b-row>
+                                <b-col class="col-4"><span>Course Name</span></b-col>
+                                <b-col class="col-8">
+                                  <b-form-input
+                                    id="update-trainee-name"
+                                    v-model="traineefName"
+                                    v-bind:value="traineefName"
+                                    required></b-form-input>
+                                </b-col>
+                              </b-row>
+                              <b-row>
+                                <b-col class="col-4"><span>Course Description</span></b-col>
+                                <b-col class="col-8">
+                                  <b-form-input
+                                    id="update-trainee-password"
+                                    v-model="traineePassword"
+                                    required></b-form-input>
+                                </b-col>
+                                </b-row>
+                          </b-form-group>
+                        </form>
+                      </b-modal>
                   </tr>
                 </thead>
                 <tbody class="tb-body">
@@ -125,9 +161,9 @@
                     <!-- <td v-if="item.staffStatus">active</td>
                     <td v-else-if="!item.staffStatus">non-active</td> -->
                     <td> 
-                      <button class="btn btn-success"><router-link to='/staff/CourseDetail.vue'>Details</router-link></button>
-                      <button class="btn btn-primary" @click="update()">Update</button>
+                      <b-button @click="getData(item._id)" v-b-modal.modal-prevent-closing1 variant="warning" class="btnC" >Update</b-button>
                       <button class="btn btn-danger" @click="remove(result.item._id)">Delete</button> 
+                      <button class="btn btn-success"><router-link to='/staff/CourseDetail' style="color:#ffffff; text-decoration: none">Details</router-link></button>
                     </td>
                   </tr>
                 </tbody>
@@ -145,7 +181,7 @@ export default {
   name: 'StaffList',
     data() {
       return {
-        url: 'http://localhost:3000',
+        url: 'http://deb6b3069831.ngrok.io',
         keyword: '',
         items: [],
         selectAll: false,

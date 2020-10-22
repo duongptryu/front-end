@@ -35,8 +35,44 @@
 
         <div class="card question-list">
           <div class="title-card">
-            <h4>Trainer List</h4>
-            <button class="btn btn-success">Create Trainer</button>
+            <h4 class="position-center">Trainer List</h4>
+            <b-col><b-button @click="creteTrainer()" v-b-modal.modal-prevent-closing variant="success" class="btnC" >Create Trainer</b-button></b-col>
+            <!-- Form Popup for CREATE STAFF -->
+              <b-modal
+                id="modal-prevent-closing"
+                ref="modal"
+                title="CREATE NEW TRAINER"
+                @show="resetModal"  
+                @hidden="resetModal"
+                @ok="handleOk"
+                ok-title="Submit">
+
+                <form ref="form" @submit.stop.prevent="handleSubmit">
+                  <b-form-group
+                    label-for="course-new"
+                    invalid-feedback="Success">
+                      <b-row>
+                        <b-col class="col-4"><span>Trainer Username</span></b-col>
+                        <b-col class="col-8">
+                          <b-form-input
+                            id="create-trainer-name"
+                            v-model="trainerName"
+                            required></b-form-input>
+                        </b-col>
+                      </b-row>
+                      <b-row>
+                        <b-col class="col-4"> <span>Trainer Password:</span></b-col>
+                        <b-col class="col-8">
+                          <b-form-input
+                            id="create-trainer-password"
+                            v-model="trainerPassword"
+                            required>
+                          </b-form-input>
+                        </b-col>
+                      </b-row>
+                  </b-form-group>
+                </form>
+              </b-modal>
           </div>
             <div class="questionList">
               <table v-if="items.length" class="table table-hover">
@@ -48,9 +84,9 @@
                         <input type="checkbox" v-model="selectAll" @click="select">
                       </label>
                     </th>
-                    <th class="text-center">User_Name</th>
+                    <th class="text-center">Username</th>
                     <th class="text-center">Password</th>
-                    <th class="text-center">Role</th>
+                    <th class="text-center">Name</th>
                     <th class="text-center">Option</th>
                   </tr>
                 </thead>
@@ -64,12 +100,10 @@
                     </td>
                     <td>{{ item.username }}</td>
                     <td>{{ item.password}}</td>
-                    <td>{{ item.role }}</td>
-                    <!-- <td v-if="item.staffStatus">active</td>
-                    <td v-else-if="!item.staffStatus">non-active</td> -->
-                    <td> 
-                      <button class="btn btn-primary" @click="update()">Update</button>
-                      <button class="btn btn-danger" @click="remove(result.item._id)">Delete</button> 
+                    <td>{{ item.name}}</td>
+                    <td>                       
+                      <button class="btn btn-danger" @click="remove(item._id)">Delete</button>
+                      <button class="btn btn-success"><router-link to='/staff/trainerDetail' style="color:#ffffff; text-decoration: none">Details</router-link></button>
                     </td>
                   </tr>
                 </tbody>
@@ -87,17 +121,20 @@ export default {
   name: 'StaffList',
     data() {
       return {
-        url: 'http://localhost:3000',
+        url: 'http://deb6b3069831.ngrok.io',
         keyword: '',
         items: [],
         selectAll: false,
         selected: [],
-        alertMessage: 'Calling APIs Successful !'
+        alertMessage: 'Calling APIs Successful !',
+        trainerName: '',
+        trainerPassword: '',
+
       }
     },
   mounted(){
-       axios.get(`${this.url}/admin/trainers`,{
-         withCredentials: true,
+       axios.get(`${this.url}/admin/trainers`, {
+          withCredentials: true,
           mode: "cors",
           headers: { "Content-Type": "application/json" }
        }).then(
@@ -107,7 +144,8 @@ export default {
         // .catch(() => {
         //   this.$router.push({path: '/login'});
         // })
-  },computed: {
+  },
+  computed: {
       resultQuery() {
         if(this.keyword) {
           return this.items.filter((item) => {
@@ -134,9 +172,20 @@ export default {
         console.log(this.selected)
       },
 
+      remove(id) {
+        axios.delete(`${this.url}/admin/delete-trainer/` + id, {
+          withCredentials: true,
+          mode: "cors",
+          headers: { "Content-Type": "application/json" }
+        }).then( () => {
+          window.alert("Delete Successful !");
+          window.location.reload();
+        })
+      },
+
       createStaff() {
 
-      }
+      }, 
   }
 }
 </script>

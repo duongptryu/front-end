@@ -15,6 +15,8 @@ import staffProfile from "../views/staff/StaffProfile.vue";
 import traineeProfile from "../views/trainee/trainee_Profile.vue";
 import trainerProfile from "../views/trainer/trainer_Profile.vue";
 import TrainerList_staff from "../views/staff/TrainerList.vue";
+import trainerDetail from "../views/staff/TrainerDetail.vue";
+import traineeDetail from "../views/staff/TraineeDetail.vue";
 import TraineeList_staff from "../views/staff/TraineeList.vue";
 import TrainerList_admin from "../views/admin/TrainerList.vue";
 import TraineeList_admin from "../views/admin/TraineeList.vue";
@@ -187,6 +189,22 @@ const routes = [{
                 component: staffProfile,
                 meta: {
                     title: "staffProfile",
+                },
+            },
+            {
+                path: "trainerDetail",
+                name: "trainerDetail",
+                component: trainerDetail,
+                meta: {
+                    title: "trainerDetail",
+                },
+            },
+            {
+                path: "traineeDetail",
+                name: "traineeDetail",
+                component: traineeDetail,
+                meta: {
+                    title: "traineeDetail",
                 },
             },
         ],
