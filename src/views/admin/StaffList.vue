@@ -36,7 +36,95 @@
         <div class="card question-list">
           <div class="title-card">
             <h4 class="position-center">Staff List</h4>
-            <button class="btn btn-success">Create Staff</button>
+            <b-col><b-button @click="creteStaff()" v-b-modal.modal-prevent-closing variant="success" class="btnC" >Create Staff</b-button></b-col>
+            <b-col><b-button @click="getData(item._id)" v-b-modal.modal-prevent-closing1 variant="success" class="btnC" >Update</b-button></b-col>
+            <!-- Form Popup for UPDATE STAFF-->
+            <b-modal
+            id="modal-prevent-closing1"
+            ref="modal"
+            title="UPDATE STAFF INFO"
+            @show="resetModal"  
+            @hidden="resetModal"
+            @ok="handleOk"
+            ok-title="Submit">
+
+            <form ref="form" @submit.stop.prevent="handleSubmit">
+              <b-form-group
+                label-for="course-new"
+                invalid-feedback="Success">
+                  <b-row>
+                    <b-col class="col-4"><span>Staff Name</span></b-col>
+                    <b-col class="col-8">
+                      <b-form-input
+                        id="code-course"
+                        v-model="staffName"
+                        required></b-form-input>
+                    </b-col>
+                  </b-row>
+                  <b-row>
+                    <b-col class="col-4"><span>Staff Name</span></b-col>
+                    <b-col class="col-8">
+                      <b-form-input
+                        id="code-course"
+                        v-model="staffName"
+                        required></b-form-input>
+                    </b-col>
+                    </b-row>
+                  <b-form-group label="Categories:">
+                    <b-form-checkbox-group id="checkbox-group-2" v-model="selected" name="flavour-2">
+                      <b-form-checkbox value="orange">Orange</b-form-checkbox>
+                      <b-form-checkbox value="apple">Apple</b-form-checkbox>
+                      <b-form-checkbox value="pineapple">Pineapple</b-form-checkbox>
+                      <b-form-checkbox value="grape">Grape</b-form-checkbox>
+                    </b-form-checkbox-group>
+                  </b-form-group>
+              </b-form-group>
+            </form>
+          </b-modal>
+          <!-- Form Popup for CREATE STAFF -->
+          <b-modal
+            id="modal-prevent-closing"
+            ref="modal"
+            title="CREATE NEW STAFF"
+            @show="resetModal"  
+            @hidden="resetModal"
+            @ok="handleOk"
+            ok-title="Submit">
+
+            <form ref="form" @submit.stop.prevent="handleSubmit">
+              <b-form-group
+                label-for="course-new"
+                invalid-feedback="Success">
+                  <b-row>
+                    <b-col class="col-4"><span>Staff Username</span></b-col>
+                    <b-col class="col-8">
+                      <b-form-input
+                        id="code-course"
+                        v-model="staffName"
+                        required></b-form-input>
+                    </b-col>
+                  </b-row>
+                  <b-row>
+                    <b-col class="col-4"> <span>Staff Password:</span></b-col>
+                    <b-col class="col-8">
+                      <b-form-input
+                        id="name-course"
+                        v-model="nameCourse"
+                        required>
+                      </b-form-input>
+                    </b-col>
+                  </b-row>
+                  <b-form-group label="Categories:">
+                    <b-form-checkbox-group id="checkbox-group-2" v-model="selected" name="flavour-2">
+                      <b-form-checkbox value="orange">Orange</b-form-checkbox>
+                      <b-form-checkbox value="apple">Apple</b-form-checkbox>
+                      <b-form-checkbox value="pineapple">Pineapple</b-form-checkbox>
+                      <b-form-checkbox value="grape">Grape</b-form-checkbox>
+                    </b-form-checkbox-group>
+                  </b-form-group>
+              </b-form-group>
+            </form>
+          </b-modal>
           </div>
             <div class="questionList">
               <table v-if="items.length" class="table table-hover">
@@ -50,7 +138,7 @@
                     </th>
                     <th class="text-center">User_Name</th>
                     <th class="text-center">Password</th>
-                    <th class="text-center">Role</th>
+                    <th class="text-center">Status</th>
                     <th class="text-center">Option</th>
                   </tr>
                 </thead>
@@ -64,12 +152,10 @@
                     </td>
                     <td>{{ item.username }}</td>
                     <td>{{ item.password}}</td>
-                    <td>{{ item.role }}</td>
-                    <!-- <td v-if="item.staffStatus">active</td>
-                    <td v-else-if="!item.staffStatus">non-active</td> -->
-                    <td> 
-                      <button class="btn btn-primary" @click="update()">Update</button>
-                      <button class="btn btn-danger" @click="remove(result.item._id)">Delete</button> 
+                    <td v-if="item.staffStatus">active</td>
+                    <td v-else-if="!item.staffStatus">non-active</td>
+                    <td>                       
+                      <button class="btn btn-danger" @click="remove(item._id)">Delete</button> 
                     </td>
                   </tr>
                 </tbody>
@@ -87,12 +173,16 @@ export default {
   name: 'StaffList',
     data() {
       return {
-        url: "http://f004cb675dbb.ngrok.io",
+        url: "http://da5151de6f8e.ngrok.io",
         keyword: '',
         items: [],
         selectAll: false,
         selected: [],
-        alertMessage: 'Calling APIs Successful !'
+        alertMessage: 'Calling APIs Successful !',
+        staffName: '',
+        update: {
+          staffName: 'this is staff name',
+        },
       }
     },
   mounted(){
@@ -102,12 +192,13 @@ export default {
           headers: { "Content-Type": "application/json" }
        }).then(
         response => {
-          this.items = response.data
+          this.Staff = response.data
         })
         // .catch(() => {
         //   this.$router.push({path: '/login'});
         // })
-  },computed: {
+  },
+  computed: {
       resultQuery() {
         if(this.keyword) {
           return this.items.filter((item) => {
@@ -133,6 +224,75 @@ export default {
       show() {
         console.log(this.selected)
       },
+
+      remove(id) {
+        axios.delete(`${this.url}/admin/delete-staff/` + id, {
+          withCredentials: true,
+          mode: "cors",
+          headers: { "Content-Type": "application/json" }
+        }).then( () => {
+          window.alert("Delete Successful !");
+          window.location.reload();
+        })
+      },
+
+      getData(id) {
+        axios.get(`${this.url}/admin/staff?id=` + id, {
+          withCredentials: true,
+          mode: "cors",
+          headersheaders: { "Content-Type": "application/json" }
+        }).then(
+        response => {
+         console(response);
+          this.staffName = this.update.staffName;
+          this.nameTrainer= this.update.nameTrainer;
+          this.nameCourse = this.update.nameCourse;
+          this.code = this.update.code;
+        })
+      },
+
+      createStaff() {
+
+      },
+
+      checkFormValidity() {
+        const valid = this.$refs.form.checkValidity()
+        this.nameState = valid
+        return valid
+      },
+      resetModal() {
+        this.name = ''
+        this.nameState = null
+      },
+
+      handleOk(bvModalEvt, id) {
+        // Khong doi ten duoc a ?
+        // submit dung method gi tinh yeu oi ?
+        axios.put(`${this.url}/admin/staff?id= ` + id, {
+          withCredentials: true,
+          mode: "cors",
+          headersheaders: { "Content-Type": "application/json" }
+        }).then(
+        //  chố này chịu :0
+        )
+        // Prevent modal from closing
+        bvModalEvt.preventDefault()
+        // Trigger submit handler
+        this.handleSubmit()
+      },
+
+      handleSubmit() {
+        // Exit when the form isn't valid
+        if (!this.checkFormValidity()) {
+          return
+        }
+        // Push the name to submitted names
+        this.submittedNames.push(this.name)
+        // Hide the modal manually
+        this.$nextTick(() => {
+          this.$bvModal.hide('modal-prevent-closing')
+        })
+      }
   }
 }
 </script>
