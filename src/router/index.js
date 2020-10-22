@@ -143,7 +143,7 @@ const routes = [{
             // },
             {
                 path: "trainer-list",
-                name: "TrainerList",
+                name: "trainer-list",
                 component: TrainerList_staff,
                 meta: {
                     title: "TrainerList - EduManagementSystem - Staff",
@@ -151,7 +151,7 @@ const routes = [{
             },
             {
                 path: "trainee-list",
-                name: "TraineeList",
+                name: "trainee-list",
                 component: TraineeList_staff,
                 meta: {
                     title: "TraineeList - EduManagementSystem - Staff",
@@ -220,7 +220,7 @@ const routes = [{
                 },
             },
             {
-                path: "profile/me",
+                path: "TraineeProfile",
                 name: "Trainee-profile",
                 component: traineeProfile,
                 meta: {

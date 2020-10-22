@@ -37,7 +37,6 @@
           <div class="title-card">
             <h4 class="position-center">Staff List</h4>
             <b-col><b-button @click="creteStaff()" v-b-modal.modal-prevent-closing variant="success" class="btnC" >Create Staff</b-button></b-col>
-            <b-col><b-button @click="getData(item._id)" v-b-modal.modal-prevent-closing1 variant="success" class="btnC" >Update</b-button></b-col>
             <!-- Form Popup for UPDATE STAFF-->
             <b-modal
             id="modal-prevent-closing1"
@@ -56,28 +55,20 @@
                     <b-col class="col-4"><span>Staff Name</span></b-col>
                     <b-col class="col-8">
                       <b-form-input
-                        id="code-course"
+                        id="update-staff-name"
                         v-model="staffName"
                         required></b-form-input>
                     </b-col>
                   </b-row>
                   <b-row>
-                    <b-col class="col-4"><span>Staff Name</span></b-col>
+                    <b-col class="col-4"><span>Staff Password</span></b-col>
                     <b-col class="col-8">
                       <b-form-input
-                        id="code-course"
+                        id="update-staff-password"
                         v-model="staffName"
                         required></b-form-input>
                     </b-col>
                     </b-row>
-                  <b-form-group label="Categories:">
-                    <b-form-checkbox-group id="checkbox-group-2" v-model="selected" name="flavour-2">
-                      <b-form-checkbox value="orange">Orange</b-form-checkbox>
-                      <b-form-checkbox value="apple">Apple</b-form-checkbox>
-                      <b-form-checkbox value="pineapple">Pineapple</b-form-checkbox>
-                      <b-form-checkbox value="grape">Grape</b-form-checkbox>
-                    </b-form-checkbox-group>
-                  </b-form-group>
               </b-form-group>
             </form>
           </b-modal>
@@ -99,7 +90,7 @@
                     <b-col class="col-4"><span>Staff Username</span></b-col>
                     <b-col class="col-8">
                       <b-form-input
-                        id="staff-name"
+                        id="create-staff-name"
                         v-model="staffName"
                         required></b-form-input>
                     </b-col>
@@ -108,20 +99,12 @@
                     <b-col class="col-4"> <span>Staff Password:</span></b-col>
                     <b-col class="col-8">
                       <b-form-input
-                        id="staff-password"
+                        id="create-staff-password"
                         v-model="staffPassword"
                         required>
                       </b-form-input>
                     </b-col>
                   </b-row>
-                  <b-form-group label="Categories:">
-                    <b-form-checkbox-group id="checkbox-group-2" v-model="selected" name="flavour-2">
-                      <b-form-checkbox value="orange">Orange</b-form-checkbox>
-                      <b-form-checkbox value="apple">Apple</b-form-checkbox>
-                      <b-form-checkbox value="pineapple">Pineapple</b-form-checkbox>
-                      <b-form-checkbox value="grape">Grape</b-form-checkbox>
-                    </b-form-checkbox-group>
-                  </b-form-group>
               </b-form-group>
             </form>
           </b-modal>
@@ -155,7 +138,8 @@
                     <td v-if="item.staffStatus">active</td>
                     <td v-else-if="!item.staffStatus">non-active</td>
                     <td>                       
-                      <button class="btn btn-danger" @click="remove(item._id)">Delete</button> 
+                      <button class="btn btn-danger" @click="remove(item._id)">Delete</button>
+                      <b-button @click="getData(item._id)" v-b-modal.modal-prevent-closing1 variant="warning" class="btnC" >Update</b-button>
                     </td>
                   </tr>
                 </tbody>
@@ -173,7 +157,7 @@ export default {
   name: 'StaffList',
     data() {
       return {
-        url: 'http://localhost:3000',
+        url: 'http://e7f28b033a52.ngrok.io',
         keyword: '',
         items: [],
         selectAll: false,
@@ -189,12 +173,12 @@ export default {
     },
   mounted(){
        axios.get(`${this.url}/admin/staff`, {
-         withCredentials: true,
+          withCredentials: true,
           mode: "cors",
           headers: { "Content-Type": "application/json" }
        }).then(
         response => {
-          this.Staff = response.data
+          this.items = response.data
         })
         // .catch(() => {
         //   this.$router.push({path: '/login'});
