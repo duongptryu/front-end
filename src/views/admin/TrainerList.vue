@@ -44,7 +44,7 @@
                 title="CREATE NEW TRAINER"
                 @show="resetModal"  
                 @hidden="resetModal"
-                @ok="handleOk"
+                @ok="createTrainer()"
                 ok-title="Submit">
 
                 <form ref="form" @submit.stop.prevent="handleSubmit">
@@ -55,8 +55,8 @@
                         <b-col class="col-4"><span>Trainer Username</span></b-col>
                         <b-col class="col-8">
                           <b-form-input
-                            id="create-trainer-name"
-                            v-model="trainerName"
+                            id="create-trainer-username"
+                            v-model="update.postBody.username"
                             required></b-form-input>
                         </b-col>
                       </b-row>
@@ -65,7 +65,7 @@
                         <b-col class="col-8">
                           <b-form-input
                             id="create-trainer-password"
-                            v-model="trainerPassword"
+                            v-model="update.postBody.password"
                             required>
                           </b-form-input>
                         </b-col>
@@ -88,12 +88,11 @@
                   label-for="course-new"
                   invalid-feedback="Success">
                     <b-row>
-                      <b-col class="col-4"><span>Trainer Name</span></b-col>
+                      <b-col class="col-4"><span>Trainer userName</span></b-col>
                       <b-col class="col-8">
                         <b-form-input
-                          id="update-trainer-name"
-                          v-model="trainerfName"
-                          v-bind:value="trainerfName"
+                          id="update-trainer-username"
+                          v-model="update.postBody.username"
                           required></b-form-input>
                       </b-col>
                     </b-row>
@@ -102,7 +101,7 @@
                       <b-col class="col-8">
                         <b-form-input
                           id="update-trainer-password"
-                          v-model="trainerPassword"
+                          v-model="update.postBody.password"
                           required></b-form-input>
                       </b-col>
                       </b-row>
@@ -154,10 +153,10 @@
 <script>
 import axios from 'axios';
 export default {
-  name: 'StaffList',
+  name: 'TrainerList',
     data() {
       return {
-        url: 'http://df59e4c0f698.ngrok.io',
+        url: 'http://localhost:3000',
         keyword: '',
         items: [],
         selectAll: false,
@@ -165,6 +164,13 @@ export default {
         alertMessage: 'Calling APIs Successful !',
         trainerName: '',
         trainerPassword: '',
+        update: {
+          id: '',
+          postBody: {
+            username: '',
+            password: ''
+          }
+        }
       }
     },
   mounted(){
@@ -219,19 +225,39 @@ export default {
       },
 
       getData(id) {
-        axios.get(`${this.url}/admin/trainer?id=` + id, {
+        console.log(id)
+        axios
+        .get(`${this.url}/admin/trainers?id=` + id, {
           withCredentials: true,
           mode: "cors",
-          headersheaders: { "Content-Type": "application/json" }
-        }).then( response => {
-          this.trainerName = response.data[0].nameTrainer;
-          this.trainerPassword = response.data[0].password;
-          console.log(this.trainerName);
+          headersheaders: { "Content-Type": "application/json" },
         })
+        .then((response) => {
+          this.update.id = response.data[0]._id;
+          document.querySelector("#update-trainer-password").value = "*********";
+          document.querySelector("#update-trainer-username").value =
+            response.data[0].username;
+        });
       },
 
-      createStaff() {
-
+      createTrainer() {
+        axios
+        .post(
+          `${this.url}/admin/create-trainer`,
+          this.update.postBody,
+          {
+            withCredentials: true,
+            mode: "cors",
+            headersheaders: { "Content-Type": "application/json" },
+          }
+        )
+        .then(() => {
+          window.alert("Create successfull");
+          window.location.reload();
+        })
+        .catch(() => {
+          window.alert("Can't not create, please try again");
+        });
       },
 
       checkFormValidity() {
@@ -245,15 +271,25 @@ export default {
         this.nameState = null
       },
 
-      handleOk(bvModalEvt, id) {
-        axios.put(`${this.url}/admin/trainer?id= ` + id, {
-          withCredentials: true,
-          mode: "cors",
-          headersheaders: { "Content-Type": "application/json" }
-        }).then(
-        //  chố này chịu :0
+      handleOk(bvModalEvt) {
+         axios
+        .patch(
+          `${this.url}/admin/update-trainer/` + this.update.id,
+          this.update.postBody,
+          {
+            withCredentials: true,
+            mode: "cors",
+            headersheaders: { "Content-Type": "application/json" },
+          }
         )
-        // Prevent modal from closing
+        .then(() => {
+          window.alert("Update successfull");
+          window.location.reload();
+        })
+        .catch(() => {
+          window.alert("Can't not update, please try again");
+        });
+
         bvModalEvt.preventDefault()
         // Trigger submit handler
         this.handleSubmit()
@@ -265,7 +301,7 @@ export default {
           return
         }
         // Push the name to submitted names
-        this.submittedNames.push(this.name)
+        // this.submittedNames.push(this.name)
         // Hide the modal manually
         this.$nextTick(() => {
           this.$bvModal.hide('modal-prevent-closing')

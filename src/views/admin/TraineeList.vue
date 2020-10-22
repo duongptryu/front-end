@@ -44,7 +44,7 @@
                 title="CREATE NEW TRAINEE"
                 @show="resetModal"  
                 @hidden="resetModal"
-                @ok="handleOk"
+                @ok="createTrainee()"
                 ok-title="Submit">
 
                 <form ref="form" @submit.stop.prevent="handleSubmit">
@@ -55,8 +55,8 @@
                         <b-col class="col-4"><span>Trainee Username</span></b-col>
                         <b-col class="col-8">
                           <b-form-input
-                            id="create-trainee-name"
-                            v-model="traineeName"
+                            id="create-trainee-username"
+                            v-model="update.postBody.username"
                             required></b-form-input>
                         </b-col>
                       </b-row>
@@ -65,7 +65,7 @@
                         <b-col class="col-8">
                           <b-form-input
                             id="create-trainee-password"
-                            v-model="traineePassword"
+                            v-model="update.postBody.password"
                             required>
                           </b-form-input>
                         </b-col>
@@ -88,12 +88,11 @@
                   label-for="course-new"
                   invalid-feedback="Success">
                     <b-row>
-                      <b-col class="col-4"><span>Trainee Name</span></b-col>
+                      <b-col class="col-4"><span>Trainee userName</span></b-col>
                       <b-col class="col-8">
                         <b-form-input
-                          id="update-trainee-name"
-                          v-model="traineefName"
-                          v-bind:value="traineefName"
+                          id="update-trainee-username"
+                          v-model="update.postBody.username"
                           required></b-form-input>
                       </b-col>
                     </b-row>
@@ -102,7 +101,7 @@
                       <b-col class="col-8">
                         <b-form-input
                           id="update-trainee-password"
-                          v-model="traineePassword"
+                          v-model="update.postBody.password"
                           required></b-form-input>
                       </b-col>
                       </b-row>
@@ -154,17 +153,22 @@
 <script>
 import axios from 'axios';
 export default {
-  name: 'StaffList',
+  name: 'TraineeList',
     data() {
       return {
-        url: 'http://df59e4c0f698.ngrok.io',
+        url: 'http://localhost:3000',
         keyword: '',
         items: [],
         selectAll: false,
         selected: [],
         alertMessage: 'Calling APIs Successful !',
-        traineeName: '',
-        traineePassword: '',
+        update: {
+          id: '',
+          postBody: {
+            username: '',
+            password: ''
+          }
+        }
       }
     },
   mounted(){
@@ -219,19 +223,39 @@ export default {
       },
 
       getData(id) {
-        axios.get(`${this.url}/admin/trainee?id=` + id, {
+        console.log(id)
+        axios
+        .get(`${this.url}/admin/trainees?id=` + id, {
           withCredentials: true,
           mode: "cors",
-          headersheaders: { "Content-Type": "application/json" }
-        }).then( response => {
-          this.trainerName = response.data[0].nameTrainer;
-          this.trainerPassword = response.data[0].password;
-          console.log(this.trainerName);
+          headersheaders: { "Content-Type": "application/json" },
         })
+        .then((response) => {
+          this.update.id = response.data[0]._id;
+          document.querySelector("#update-trainee-password").value = "*********";
+          document.querySelector("#update-trainee-username").value =
+            response.data[0].username;
+        });
       },
 
-      createStaff() {
-
+      createTrainee() {
+        axios
+        .post(
+          `${this.url}/admin/create-trainee`,
+          this.update.postBody,
+          {
+            withCredentials: true,
+            mode: "cors",
+            headersheaders: { "Content-Type": "application/json" },
+          }
+        )
+        .then(() => {
+          window.alert("Create successfull");
+          window.location.reload();
+        })
+        .catch(() => {
+          window.alert("Can't not update, please try again");
+        });
       },
 
       checkFormValidity() {
@@ -245,15 +269,25 @@ export default {
         this.nameState = null
       },
 
-      handleOk(bvModalEvt, id) {
-        axios.put(`${this.url}/admin/trainee?id= ` + id, {
-          withCredentials: true,
-          mode: "cors",
-          headersheaders: { "Content-Type": "application/json" }
-        }).then(
-        //  chố này chịu :0
+      handleOk(bvModalEvt) {
+         axios
+        .patch(
+          `${this.url}/admin/update-trainee/` + this.update.id,
+          this.update.postBody,
+          {
+            withCredentials: true,
+            mode: "cors",
+            headersheaders: { "Content-Type": "application/json" },
+          }
         )
-        // Prevent modal from closing
+        .then(() => {
+          window.alert("Update successfull");
+          window.location.reload();
+        })
+        .catch(() => {
+          window.alert("Can't not update, please try again");
+        });
+
         bvModalEvt.preventDefault()
         // Trigger submit handler
         this.handleSubmit()
@@ -265,7 +299,7 @@ export default {
           return
         }
         // Push the name to submitted names
-        this.submittedNames.push(this.name)
+        // this.submittedNames.push(this.name)
         // Hide the modal manually
         this.$nextTick(() => {
           this.$bvModal.hide('modal-prevent-closing')
