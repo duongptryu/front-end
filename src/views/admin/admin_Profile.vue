@@ -60,6 +60,7 @@
                                         name="checkbox-1"
                                         v-bind:value="password"
                                         unchecked-value="hidden"
+                                        checked-value="true"
                                         >
                                         <p>{{ password }}</p>
                                     </b-form-checkbox>
