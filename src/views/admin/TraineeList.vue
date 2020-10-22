@@ -163,8 +163,8 @@ export default {
         selectAll: false,
         selected: [],
         alertMessage: 'Calling APIs Successful !',
-        trainerName: '',
-        trainerPassword: '',
+        traineeName: '',
+        traineePassword: '',
       }
     },
   mounted(){

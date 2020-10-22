@@ -17,6 +17,9 @@ import trainerProfile from "../views/trainer/trainer_Profile.vue";
 import TrainerList_staff from "../views/staff/TrainerList.vue";
 import trainerDetail from "../views/staff/TrainerDetail.vue";
 import traineeDetail from "../views/staff/TraineeDetail.vue";
+import topicDetail from "../views/staff/TopicDetail.vue"
+import courseDetail from "../views/staff/CourseDetail.vue"
+import categoryDetail from "../views/staff/CategoryDetail.vue"
 import TraineeList_staff from "../views/staff/TraineeList.vue";
 import TrainerList_admin from "../views/admin/TrainerList.vue";
 import TraineeList_admin from "../views/admin/TraineeList.vue";
@@ -205,6 +208,30 @@ const routes = [{
                 component: traineeDetail,
                 meta: {
                     title: "traineeDetail",
+                },
+            },
+            {
+                path: "topicDetail",
+                name: "topicDetail",
+                component: topicDetail,
+                meta: {
+                    title: "topicDetail",
+                },
+            },
+            {
+                path: "courseDetail",
+                name: "courseDetail",
+                component: courseDetail,
+                meta: {
+                    title: "courseDetail",
+                },
+            },
+            {
+                path: "categoryDetail",
+                name: "categoryDetail",
+                component: categoryDetail,
+                meta: {
+                    title: "categoryDetail",
                 },
             },
         ],

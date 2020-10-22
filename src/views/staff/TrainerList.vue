@@ -47,31 +47,77 @@
                 @ok="handleOk"
                 ok-title="Submit">
 
-                <form ref="form" @submit.stop.prevent="handleSubmit">
-                  <b-form-group
+                 <form ref="form" @submit.stop.prevent="handleSubmit">
+                    <b-form-group
                     label-for="course-new"
                     invalid-feedback="Success">
-                      <b-row>
-                        <b-col class="col-4"><span>Trainer Username</span></b-col>
-                        <b-col class="col-8">
-                          <b-form-input
-                            id="create-trainer-name"
-                            v-model="trainerName"
-                            required></b-form-input>
-                        </b-col>
-                      </b-row>
-                      <b-row>
-                        <b-col class="col-4"> <span>Trainer Password:</span></b-col>
-                        <b-col class="col-8">
-                          <b-form-input
-                            id="create-trainer-password"
-                            v-model="trainerPassword"
-                            required>
-                          </b-form-input>
-                        </b-col>
-                      </b-row>
-                  </b-form-group>
-                </form>
+                      <b-row class="decor">
+                            <b-col class="col-4"><span>Trainer Username</span></b-col>
+                            <b-col class="col-8">
+                                <b-form-input
+                                id="update-trainer-username"
+                                v-model="trainerUsername"
+                                v-bind:value="trainerUsername"
+                                required></b-form-input>
+                            </b-col>
+                        </b-row>
+                        <b-row class="decor">
+                            <b-col class="col-4"><span>Trainer Name</span></b-col>
+                            <b-col class="col-8">
+                                <b-form-input
+                                id="update-trainer-name"
+                                v-model="trainerName"
+                                v-bind:value="trainerName"
+                                required></b-form-input>
+                            </b-col>
+                        </b-row>
+                        <b-row class="decor">
+                            <b-col class="col-4"><span>Trainer Password</span></b-col>
+                            <b-col class="col-8">
+                                <b-form-input
+                                id="update-trainer-password"
+                                v-model="trainerPassword"
+                                required></b-form-input>
+                            </b-col>
+                        </b-row>
+                        <b-row class="decor">
+                            <b-col class="col-4"><span>Trainer Address</span></b-col>
+                            <b-col class="col-8">
+                                <b-form-input
+                                id="update-trainer-address"
+                                v-model="trainerAddress"
+                                required></b-form-input>
+                            </b-col>
+                        </b-row>
+                        <b-row class="decor">
+                            <b-col class="col-4"><span>Trainer Telephone</span></b-col>
+                            <b-col class="col-8">
+                                <b-form-input
+                                id="update-trainer-telephone"
+                                v-model="trainerTelephone"
+                                required></b-form-input>
+                            </b-col>
+                        </b-row>
+                        <b-row class="decor">
+                            <b-col class="col-4"><span>Trainer Topic</span></b-col>
+                            <b-col class="col-8">
+                                <b-form-input
+                                id="update-trainer-topic"
+                                v-model="trainerTopic"
+                                required></b-form-input>
+                            </b-col>
+                        </b-row>
+                        <b-row class="decor">
+                            <b-col class="col-4"><span>Trainer Workplace</span></b-col>
+                            <b-col class="col-8">
+                                <b-form-input
+                                id="update-trainer-workplace"
+                                v-model="trainerWorkplace"
+                                required></b-form-input>
+                            </b-col>
+                        </b-row>
+                    </b-form-group>
+                  </form>
               </b-modal>
           </div>
             <div class="questionList">
@@ -127,9 +173,13 @@ export default {
         selectAll: false,
         selected: [],
         alertMessage: 'Calling APIs Successful !',
+        trainerUsername:'',
         trainerName: '',
         trainerPassword: '',
-
+        trainerTelephone: '',
+        trainerAddress: '',
+        trainerWorkplace: '',
+        trainerTopic: '',
       }
     },
   mounted(){
@@ -186,6 +236,38 @@ export default {
       createStaff() {
 
       }, 
+
+       resetModal() {
+        this.name = ''
+        this.nameState = null
+      },
+
+      handleOk(bvModalEvt, id) {
+        axios.put(`${this.url}/admin/trainer?id= ` + id, {
+          withCredentials: true,
+          mode: "cors",
+          headersheaders: { "Content-Type": "application/json" }
+        }).then(
+        //  chố này chịu :0
+        )
+        // Prevent modal from closing
+        bvModalEvt.preventDefault()
+        // Trigger submit handler
+        this.handleSubmit()
+      },
+
+      handleSubmit() {
+        // Exit when the form isn't valid
+        if (!this.checkFormValidity()) {
+          return
+        }
+        // Push the name to submitted names
+        this.submittedNames.push(this.name)
+        // Hide the modal manually
+        this.$nextTick(() => {
+          this.$bvModal.hide('modal-prevent-closing')
+        })
+      }
   }
 }
 </script>

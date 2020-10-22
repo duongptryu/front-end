@@ -32,7 +32,9 @@
             </div>
           </div> 
         </div>
-
+        <!--  -->
+        <button class="btn btn-success"><router-link to='/staff/CourseDetail' style="color:#ffffff; text-decoration: none">Details</router-link></button>
+        <!--  -->
         <div class="card question-list">
           <div class="title-card">
             <h4>Course List</h4>
@@ -41,57 +43,45 @@
             <b-modal
             id="modal-prevent-closing"
             ref="modal"
-            title="CREATE"
+            title="CREATE NEW COURSE"
             @show="resetModal"
             @hidden="resetModal"
-            @ok="handleOk">
+            @ok="handleOk"
+            ok-title="Submit">
 
             <form ref="form" @submit.stop.prevent="handleSubmit">
               <b-form-group
-                :state="nameState"
-                label="Create New Course"
                 label-for="course-new"
                 invalid-feedback="Success">
-                  <b-row>
-                    <b-col class="col-4"><span>Code course:</span></b-col>
+                  <b-row class="decor">
+                    <b-col class="col-4"><span>Code Course:</span></b-col>
                     <b-col class="col-8">
                       <b-form-input
                         id="code-course"
-                        v-model="code"
-                        :state="code-course"
+                        v-model="codeCourse"
                         required></b-form-input>
                     </b-col>
                   </b-row>
-                  <b-row>
-                    <b-col class="col-4"> <span>Name course:</span></b-col>
+                  <b-row class="decor">
+                    <b-col class="col-4"> <span>Name Course:</span></b-col>
                     <b-col class="col-8">
                       <b-form-input
                         id="name-course"
-                        v-model="name"
-                        :state="nameCourse"
+                        v-model="nameCourse"
                         required>
                       </b-form-input>
                     </b-col>
                   </b-row>
-                  <b-row>
-                      <b-col class="col-4"><span>Name Trainer:</span></b-col>
+                  <b-row class="decor">
+                      <b-col class="col-4"><span>Course Description:</span></b-col>
                       <b-col class="col-8">
                         <b-form-input
-                          id="name-trainer"
-                          v-model="name"
-                          :state="nameTrainer"
+                          id="course-description"
+                          v-model="courseDescription"
                           required>
                         </b-form-input>
                       </b-col>
-                  </b-row>         
-                  <b-form-group label="Categories:">
-                    <b-form-checkbox-group id="checkbox-group-2" v-model="selected" name="flavour-2">
-                      <b-form-checkbox value="orange">Orange</b-form-checkbox>
-                      <b-form-checkbox value="apple">Apple</b-form-checkbox>
-                      <b-form-checkbox value="pineapple">Pineapple</b-form-checkbox>
-                      <b-form-checkbox value="grape">Grape</b-form-checkbox>
-                    </b-form-checkbox-group>
-                  </b-form-group>
+                  </b-row>                         
               </b-form-group>
             </form>
           </b-modal>
@@ -110,42 +100,6 @@
                     <th class="text-center">Course Name</th>
                     <th class="text-center">Description</th>
                     <th class="text-center">Option</th>
-                    <!-- Form Popup for UPDATE COURSE-->
-                      <b-modal
-                      id="modal-prevent-closing1"
-                      ref="modal"
-                      title="UPDATE COURSE INFO"
-                      @show="resetModal"  
-                      @hidden="resetModal"
-                      @ok="handleOk"
-                      ok-title="Submit">
-
-                        <form ref="form" @submit.stop.prevent="handleSubmit">
-                          <b-form-group
-                            label-for="course-new"
-                            invalid-feedback="Success">
-                              <b-row>
-                                <b-col class="col-4"><span>Course Name</span></b-col>
-                                <b-col class="col-8">
-                                  <b-form-input
-                                    id="update-trainee-name"
-                                    v-model="traineefName"
-                                    v-bind:value="traineefName"
-                                    required></b-form-input>
-                                </b-col>
-                              </b-row>
-                              <b-row>
-                                <b-col class="col-4"><span>Course Description</span></b-col>
-                                <b-col class="col-8">
-                                  <b-form-input
-                                    id="update-trainee-password"
-                                    v-model="traineePassword"
-                                    required></b-form-input>
-                                </b-col>
-                                </b-row>
-                          </b-form-group>
-                        </form>
-                      </b-modal>
                   </tr>
                 </thead>
                 <tbody class="tb-body">
@@ -161,7 +115,6 @@
                     <!-- <td v-if="item.staffStatus">active</td>
                     <td v-else-if="!item.staffStatus">non-active</td> -->
                     <td> 
-                      <b-button @click="getData(item._id)" v-b-modal.modal-prevent-closing1 variant="warning" class="btnC" >Update</b-button>
                       <button class="btn btn-danger" @click="remove(result.item._id)">Delete</button> 
                       <button class="btn btn-success"><router-link to='/staff/CourseDetail' style="color:#ffffff; text-decoration: none">Details</router-link></button>
                     </td>
@@ -187,15 +140,9 @@ export default {
         selectAll: false,
         selected: [],
         alertMessage: 'Calling APIs Successful !',
-        name: '',
-        nameState: null,
-        submittedNames: [],
-        options: [
-          { text: 'Orange', value: 'orange' },
-          { text: 'Apple', value: 'apple' },
-          { text: 'Pineapple', value: 'pineapple' },
-          { text: 'Grape', value: 'grape' }
-        ]
+        codeCourse: '',
+        courseDescription: '',
+        nameCourse: '',
       }
     },
   mounted(){

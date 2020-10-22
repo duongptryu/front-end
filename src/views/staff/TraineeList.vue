@@ -48,30 +48,95 @@
                 ok-title="Submit">
 
                 <form ref="form" @submit.stop.prevent="handleSubmit">
-                  <b-form-group
+                    <b-form-group
                     label-for="course-new"
                     invalid-feedback="Success">
-                      <b-row>
-                        <b-col class="col-4"><span>Trainee Username</span></b-col>
-                        <b-col class="col-8">
-                          <b-form-input
-                            id="create-trainee-name"
-                            v-model="traineeName"
-                            required></b-form-input>
-                        </b-col>
-                      </b-row>
-                      <b-row>
-                        <b-col class="col-4"> <span>Trainee Password:</span></b-col>
-                        <b-col class="col-8">
-                          <b-form-input
-                            id="create-trainee-password"
-                            v-model="traineePassword"
-                            required>
-                          </b-form-input>
-                        </b-col>
-                      </b-row>
-                  </b-form-group>
+                      <b-row class="decor">
+                            <b-col class="col-4"><span>Trainee Username</span></b-col>
+                            <b-col class="col-8">
+                                <b-form-input
+                                id="update-trainee-username"
+                                v-model="traineeUsername"
+                                v-bind:value="traineeUsername"
+                                required></b-form-input>
+                            </b-col>
+                        </b-row>
+                        <b-row class="decor">
+                            <b-col class="col-4"><span>Trainee Name</span></b-col>
+                            <b-col class="col-8">
+                                <b-form-input
+                                id="update-trainee-name"
+                                v-model="traineeName"
+                                v-bind:value="traineeName"
+                                required></b-form-input>
+                            </b-col>
+                        </b-row>
+                        <b-row class="decor">
+                            <b-col class="col-4"><span>Trainee Password</span></b-col>
+                            <b-col class="col-8">
+                                <b-form-input
+                                id="update-trainee-password"
+                                v-model="traineePassword"
+                                required></b-form-input>
+                            </b-col>
+                        </b-row>
+                        <b-row class="decor">
+                            <b-col class="col-4"><span>Trainee Address</span></b-col>
+                            <b-col class="col-8">
+                                <b-form-input
+                                id="update-trainee-address"
+                                v-model="traineeAddress"
+                                required></b-form-input>
+                            </b-col>
+                        </b-row>
+                        <b-row class="decor">
+                            <b-col class="col-4"><span>Trainee Telephone</span></b-col>
+                            <b-col class="col-8">
+                                <b-form-input
+                                id="update-trainee-education"
+                                v-model="traineeEducation"
+                                required></b-form-input>
+                            </b-col>
+                        </b-row>
+                        <b-row class="decor">
+                            <b-col class="col-4"><span>Trainee Courses</span></b-col>
+                            <b-col class="col-8">
+                                <b-form-input
+                                id="update-trainee-course"
+                                v-model="traineeCourses"
+                                required></b-form-input>
+                            </b-col>
+                        </b-row>
+                        <b-row class="decor">
+                            <b-col class="col-4"><span>Trainee Experiences</span></b-col>
+                            <b-col class="col-8">
+                                <b-form-input
+                                id="update-trainee-exp"
+                                v-model="traineeExp"
+                                required></b-form-input>
+                            </b-col>
+                        </b-row>
+                        <b-row class="decor">
+                            <b-col class="col-4"><span>Trainee Main Program Language</span></b-col>
+                            <b-col class="col-8">
+                                <b-form-input
+                                id="update-trainee-mainLang"
+                                v-model="traineeMainLang"
+                                required></b-form-input>
+                            </b-col>
+                        </b-row>
+                        <b-row class="decor">
+                            <b-col class="col-4"><span>Trainee TOEIC Score</span></b-col>
+                            <b-col class="col-8">
+                                <b-form-input
+                                id="update-trainee-toeicScore"
+                                v-model="traineeToeicScore"
+                                required></b-form-input>
+                            </b-col>
+                        </b-row>
+                    </b-form-group>
                 </form>
+
               </b-modal>
           </div>
             <div class="questionList">
@@ -127,8 +192,15 @@ export default {
         selectAll: false,
         selected: [],
         alertMessage: 'Calling APIs Successful !',
+        traineeUsername: '',
         traineeName: '',
         traineePassword: '',
+        traineeAddress: '',
+        traineeToeicScore: '',
+        traineeMainLang: '',
+        traineeExp: '',
+        traineeCourses: '',
+        traineeEducation: '',
       }
     },
   mounted(){
@@ -156,6 +228,7 @@ export default {
         }
       }
     },
+    
     methods: {
       select() {
         this.selected = [];

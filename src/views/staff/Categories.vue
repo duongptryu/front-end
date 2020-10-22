@@ -32,7 +32,9 @@
             </div>
           </div> 
         </div>
-
+        <!--  -->
+        <button class="btn btn-success"><router-link to='/staff/CourseDetail' style="color:#ffffff; text-decoration: none">Details</router-link></button>
+        <!--  -->
         <div class="card question-list">
           <div class="title-card">
             <h4>Category List</h4>
@@ -44,45 +46,33 @@
             title="CREATE NEW CATEGORY"
             @show="resetModal"
             @hidden="resetModal"
-            @ok="handleOk">
+            @ok="handleOk"
+            ok-title="Submit">
 
             <form ref="form" @submit.stop.prevent="handleSubmit">
               <b-form-group
-                :state="nameState"
-                label-for="course-new"
+                label-for="category-new"
                 invalid-feedback="Success">
-                  <b-row>
-                    <b-col class="col-4"><span>Code Category:</span></b-col>
-                    <b-col class="col-8">
-                      <b-form-input
-                        id="code-course"
-                        v-model="code"
-                        :state="code-course"
-                        required></b-form-input>
-                    </b-col>
-                  </b-row>
-                  <b-row>
+                  <b-row class="decor">
                     <b-col class="col-4"> <span>Name Category:</span></b-col>
                     <b-col class="col-8">
                       <b-form-input
-                        id="name-course"
-                        v-model="name"
-                        :state="nameCourse"
+                        id="name-category"
+                        v-model="nameCategory"
                         required>
                       </b-form-input>
                     </b-col>
                   </b-row>
-                  <b-row>
-                      <b-col class="col-4"><span>Name Trainer:</span></b-col>
+                  <b-row class="decor">
+                      <b-col class="col-4"><span>Category Description:</span></b-col>
                       <b-col class="col-8">
                         <b-form-input
-                          id="name-trainer"
-                          v-model="name"
-                          :state="nameTrainer"
+                          id="category-description"
+                          v-model="categoryDescription"
                           required>
                         </b-form-input>
                       </b-col>
-                  </b-row>         >
+                  </b-row>                         
               </b-form-group>
             </form>
           </b-modal>
@@ -98,9 +88,8 @@
                         <input type="checkbox" v-model="selectAll" @click="select">
                       </label>
                     </th>
-                    <th class="text-center">User_Name</th>
-                    <th class="text-center">Password</th>
-                    <th class="text-center">Role</th>
+                    <th class="text-center">Course Name</th>
+                    <th class="text-center">Description</th>
                     <th class="text-center">Option</th>
                   </tr>
                 </thead>
@@ -112,14 +101,13 @@
                         <input v-model="selected" :value="item._id" type="checkbox" @change="show">
                       </label>
                     </td>
-                    <td>{{ item.username }}</td>
-                    <td>{{ item.password}}</td>
-                    <td>{{ item.role }}</td>
+                    <td>{{ item.courseName }}</td>
+                    <td>{{ item.description}}</td>
                     <!-- <td v-if="item.staffStatus">active</td>
                     <td v-else-if="!item.staffStatus">non-active</td> -->
                     <td> 
-                      <button class="btn btn-primary" @click="update()">Update</button>
                       <button class="btn btn-danger" @click="remove(result.item._id)">Delete</button> 
+                      <button class="btn btn-success"><router-link to='/staff/CourseDetail' style="color:#ffffff; text-decoration: none">Details</router-link></button>
                     </td>
                   </tr>
                 </tbody>
@@ -137,25 +125,18 @@ export default {
   name: 'StaffList',
     data() {
       return {
-        url: 'http://localhost:3000',
+        url: 'http://deb6b3069831.ngrok.io',
         keyword: '',
         items: [],
         selectAll: false,
         selected: [],
         alertMessage: 'Calling APIs Successful !',
-        name: '',
-        nameState: null,
-        submittedNames: [],
-        options: [
-          { text: 'Orange', value: 'orange' },
-          { text: 'Apple', value: 'apple' },
-          { text: 'Pineapple', value: 'pineapple' },
-          { text: 'Grape', value: 'grape' }
-        ]
+        categoryDescription: '',
+        nameCategory: '',
       }
     },
   mounted(){
-       axios.get(`${this.url}/admin/trainees`,{
+       axios.get(`${this.url}/staff/courses`,{
             withCredentials: true,
           mode: "cors",
           headers: { "Content-Type": "application/json" }

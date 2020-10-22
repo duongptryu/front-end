@@ -94,12 +94,22 @@
                                 label-for="course-new"
                                 invalid-feedback="Success">
                                     <b-row class="decor">
+                                      <b-col class="col-4"><span>Trainee Username</span></b-col>
+                                      <b-col class="col-8">
+                                          <b-form-input
+                                          id="update-trainee-username"
+                                          v-model="traineeUsername"
+                                          v-bind:value="traineeUsername"
+                                          required></b-form-input>
+                                      </b-col>
+                                  </b-row>
+                                    <b-row class="decor">
                                         <b-col class="col-4"><span>Trainee Name</span></b-col>
                                         <b-col class="col-8">
                                             <b-form-input
                                             id="update-trainer-name"
                                             v-model="trainerName"
-                                            v-bind:value="trainerName"
+                                            v-bind:value="traineeName"
                                             required></b-form-input>
                                         </b-col>
                                     </b-row>
@@ -108,7 +118,7 @@
                                         <b-col class="col-8">
                                             <b-form-input
                                             id="update-trainer-password"
-                                            v-model="trainerPassword"
+                                            v-model="traineePassword"
                                             required></b-form-input>
                                         </b-col>
                                     </b-row>
@@ -117,7 +127,7 @@
                                         <b-col class="col-8">
                                             <b-form-input
                                             id="update-trainer-address"
-                                            v-model="trainerAddress"
+                                            v-model="traineeAddress"
                                             required></b-form-input>
                                         </b-col>
                                     </b-row>
@@ -126,7 +136,7 @@
                                         <b-col class="col-8">
                                             <b-form-input
                                             id="update-trainer-education"
-                                            v-model="trainerEducation"
+                                            v-model="traineeEducation"
                                             required></b-form-input>
                                         </b-col>
                                     </b-row>
@@ -135,7 +145,7 @@
                                         <b-col class="col-8">
                                             <b-form-input
                                             id="update-trainer-course"
-                                            v-model="trainerCourses"
+                                            v-model="traineeCourses"
                                             required></b-form-input>
                                         </b-col>
                                     </b-row>
@@ -144,7 +154,7 @@
                                         <b-col class="col-8">
                                             <b-form-input
                                             id="update-trainer-exp"
-                                            v-model="trainerExp"
+                                            v-model="traineeExp"
                                             required></b-form-input>
                                         </b-col>
                                     </b-row>
@@ -153,7 +163,7 @@
                                         <b-col class="col-8">
                                             <b-form-input
                                             id="update-trainer-mainLang"
-                                            v-model="trainerMainLang"
+                                            v-model="traineeMainLang"
                                             required></b-form-input>
                                         </b-col>
                                     </b-row>
@@ -162,7 +172,7 @@
                                         <b-col class="col-8">
                                             <b-form-input
                                             id="update-trainer-toeicScore"
-                                            v-model="trainerToeicScore"
+                                            v-model="traineeToeicScore"
                                             required></b-form-input>
                                         </b-col>
                                     </b-row>
@@ -193,14 +203,14 @@ export default {
         selectAll: false,
         selected: [],
         alertMessage: 'Calling APIs Successful !',
-        trainerName: '',
-        trainerPassword: '',
-        trainerAddress: '',
-        trainerToeicScore: '',
-        trainerMainLang: '',
-        trainerExp: '',
-        trainerCourses: '',
-        trainerEducation: '',
+        traineeName: '',
+        traineePassword: '',
+        traineeAddress: '',
+        traineeToeicScore: '',
+        traineeMainLang: '',
+        traineeExp: '',
+        traineeCourses: '',
+        traineeEducation: '',
       }
     },
   mounted(){
