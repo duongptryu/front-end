@@ -79,7 +79,7 @@ export default {
   },
   data() {
     return {
-      url: 'http://f004cb675dbb.ngrok.io',
+      url: 'http://localhost:3000',
       postBody: {
         username: '',
         password: '',

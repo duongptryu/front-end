@@ -137,7 +137,7 @@ export default {
   name: 'StaffList',
     data() {
       return {
-        url: "http://f004cb675dbb.ngrok.io",
+        url: 'http://localhost:3000',
         keyword: '',
         items: [],
         selectAll: false,

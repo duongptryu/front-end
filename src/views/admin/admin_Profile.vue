@@ -14,11 +14,11 @@
                 <div class="col-md-6">
                     <div class="profile-head">
                                 <h5>
-                                    Nguyen Van A
+                                    {{ username }}
                                     <!-- phai co binding data vao day de hien thi ten -->
                                 </h5>
                                 <h6>
-                                    Admin 
+                                    {{ username }}
                                     <!-- phai co binding data vao day de hien thi role -->
                                 </h6>
                                 <p class="proile-rating">RANKINGS : <span>8/10</span></p>
@@ -45,7 +45,7 @@
                                     <label>Username</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <p>admin</p>
+                                    <p>{{ username }}</p>
                                     <!-- phai co binding data vao day de hien thi username -->
                                 </div>
                             </div>
@@ -58,7 +58,7 @@
                                         id="checkbox-1"
                                         v-model="password"
                                         name="checkbox-1"
-                                        value="conmeongungoc"
+                                        v-bind:value="password"
                                         unchecked-value="hidden"
                                         >
                                         <p>{{ password }}</p>
@@ -75,13 +75,29 @@
 </template>
 
 <script>
+import axios from 'axios'
 
 export default {
     name: 'admin_Profile',
     data() {
-      return { 
-        password: 'Click Here To Show Passoword !'
+      return {
+        url: "http://localhost:3000",
+        password: '',
+        username: '',
       }
+    },
+    created(){
+         axios.get(`${this.url}/login/get-user`, {
+          withCredentials: true,
+          mode: "cors",
+          headers: { "Content-Type": "application/json" },
+        })
+        .then(res => {      
+            this.username = res.data.user.username
+            this.password = res.data.user.password
+        }).catch((err) => {
+            console.log(err)
+        }) 
     }
 }
 </script>
