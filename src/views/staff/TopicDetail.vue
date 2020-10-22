@@ -43,7 +43,7 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th class="pick">
+                    <th class="pick text-center">
                       <label>
                         <input type="checkbox" v-model="selectAll" @click="select">
                       </label>
@@ -55,7 +55,7 @@
                     <b-modal
                     id="modal-prevent-closing"
                     ref="modal"
-                    title="CREATE NEW TOPIC"
+                    title="UPDATE TOPIC INFO"
                     @show="resetModal"
                     @hidden="resetModal"
                     @ok="handleOk"
@@ -111,7 +111,7 @@
                     <!-- <td v-if="item.staffStatus">active</td>
                     <td v-else-if="!item.staffStatus">non-active</td> -->
                     <td> 
-                      <b-button @click="getData(item._id)" v-b-modal.modal-prevent-closing1 variant="warning" class="btnC" >Update</b-button>
+                      <b-button @click="getData(item._id)" v-b-modal.modal-prevent-closing variant="warning" class="btnC" >Update</b-button>
                     </td>
                   </tr>
                 </tbody>
@@ -129,7 +129,7 @@ export default {
   name: 'StaffList',
     data() {
       return {
-        url: 'http://deb6b3069831.ngrok.io',
+        url: 'http://df59e4c0f698.ngrok.io',
         keyword: '',
         items: [],
         selectAll: false,

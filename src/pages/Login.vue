@@ -79,7 +79,7 @@ export default {
   },
   data() {
     return {
-      url: 'http://localhost:3000',
+      url: 'http://df59e4c0f698.ngrok.io',
       postBody: {
         username: '',
         password: '',
@@ -136,7 +136,7 @@ export default {
             this.$router.push({path: '/'});
           }
         }).catch(() => {
-              this.info = 'Incorrect username or password';
+              this.info = '<< Incorrect username or password !>>';
         });
     },
   },
@@ -152,6 +152,7 @@ body.login {
   -o-background-size: cover;
   background-size: cover;
 }
+
 </style>
 
 <style scoped src="../assets/css/Login.css"></style>

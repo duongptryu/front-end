@@ -93,7 +93,7 @@ export default {
     name: 'admin_Profile',
     data() {
       return {
-        url: "http://localhost:3000",
+        url: "http://df59e4c0f698.ngrok.io",
         postBody: {
             oldPassword:'',
             newPassword: '',
