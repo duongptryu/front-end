@@ -44,7 +44,7 @@
                 title="CREATE NEW TRAINER"
                 @show="resetModal"  
                 @hidden="resetModal"
-                @ok="handleOk"
+                @ok="createTrainer()"
                 ok-title="Submit">
 
                  <form ref="form" @submit.stop.prevent="handleSubmit">
@@ -56,8 +56,7 @@
                             <b-col class="col-8">
                                 <b-form-input
                                 id="update-trainer-username"
-                                v-model="trainerUsername"
-                                v-bind:value="trainerUsername"
+                                v-model="postBody.username"
                                 required></b-form-input>
                             </b-col>
                         </b-row>
@@ -66,8 +65,8 @@
                             <b-col class="col-8">
                                 <b-form-input
                                 id="update-trainer-name"
-                                v-model="trainerName"
-                                v-bind:value="trainerName"
+                                v-model="postBody.name"
+                              
                                 required></b-form-input>
                             </b-col>
                         </b-row>
@@ -76,7 +75,7 @@
                             <b-col class="col-8">
                                 <b-form-input
                                 id="update-trainer-password"
-                                v-model="trainerPassword"
+                                v-model="postBody.password"
                                 required></b-form-input>
                             </b-col>
                         </b-row>
@@ -85,7 +84,7 @@
                             <b-col class="col-8">
                                 <b-form-input
                                 id="update-trainer-address"
-                                v-model="trainerAddress"
+                                v-model="postBody.address"
                                 required></b-form-input>
                             </b-col>
                         </b-row>
@@ -94,16 +93,7 @@
                             <b-col class="col-8">
                                 <b-form-input
                                 id="update-trainer-telephone"
-                                v-model="trainerTelephone"
-                                required></b-form-input>
-                            </b-col>
-                        </b-row>
-                        <b-row class="decor">
-                            <b-col class="col-4"><span>Trainer Topic</span></b-col>
-                            <b-col class="col-8">
-                                <b-form-input
-                                id="update-trainer-topic"
-                                v-model="trainerTopic"
+                                v-model="postBody.telephone"
                                 required></b-form-input>
                             </b-col>
                         </b-row>
@@ -112,7 +102,7 @@
                             <b-col class="col-8">
                                 <b-form-input
                                 id="update-trainer-workplace"
-                                v-model="trainerWorkplace"
+                                v-model="postBody.workingPlace"
                                 required></b-form-input>
                             </b-col>
                         </b-row>
@@ -167,19 +157,20 @@ export default {
   name: 'StaffList',
     data() {
       return {
-        url: 'http://df59e4c0f698.ngrok.io',
+        url: 'http://localhost:3000',
         keyword: '',
         items: [],
         selectAll: false,
         selected: [],
         alertMessage: 'Calling APIs Successful !',
-        trainerUsername:'',
-        trainerName: '',
-        trainerPassword: '',
-        trainerTelephone: '',
-        trainerAddress: '',
-        trainerWorkplace: '',
-        trainerTopic: '',
+        postBody: {
+          username:'',
+          name: '',
+          password: '',
+          telephone: '',
+          address: '',
+          workingPlace: '',
+        }
       }
     },
   mounted(){
@@ -189,6 +180,7 @@ export default {
           headers: { "Content-Type": "application/json" }
        }).then(
         response => {
+          console.log(response)
           this.items = response.data
         })
         // .catch(() => {
@@ -233,8 +225,25 @@ export default {
         })
       },
 
-      createStaff() {
-
+      createTrainer() {
+        console.log(this.postBody)
+        axios
+        .post(
+          `${this.url}/staff/create-trainer`,
+          this.postBody,
+          {
+            withCredentials: true,
+            mode: "cors",
+            headersheaders: { "Content-Type": "application/json" },
+          }
+        )
+        .then(() => {
+          window.alert("Create successfull");
+          window.location.reload();
+        })
+        .catch(() => {
+          window.alert("Can't not create, please try again");
+        });
       }, 
 
        resetModal() {
@@ -242,14 +251,7 @@ export default {
         this.nameState = null
       },
 
-      handleOk(bvModalEvt, id) {
-        axios.put(`${this.url}/admin/trainer?id= ` + id, {
-          withCredentials: true,
-          mode: "cors",
-          headersheaders: { "Content-Type": "application/json" }
-        }).then(
-        //  chố này chịu :0
-        )
+      handleOk(bvModalEvt) {
         // Prevent modal from closing
         bvModalEvt.preventDefault()
         // Trigger submit handler

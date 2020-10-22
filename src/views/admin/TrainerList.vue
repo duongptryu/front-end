@@ -36,7 +36,7 @@
         <div class="card question-list">
           <div class="title-card">
             <h4 class="position-center">Trainer List</h4>
-            <b-col><b-button @click="creteTrainer()" v-b-modal.modal-prevent-closing variant="success" class="btnC" >Create Trainer</b-button></b-col>
+            <b-col><b-button v-b-modal.modal-prevent-closing variant="success" class="btnC" >Create Trainer</b-button></b-col>
             <!-- Form Popup for CREATE STAFF -->
               <b-modal
                 id="modal-prevent-closing"

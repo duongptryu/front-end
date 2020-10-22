@@ -44,7 +44,7 @@
                 title="CREATE NEW TRAINEE"
                 @show="resetModal"  
                 @hidden="resetModal"
-                @ok="handleOk"
+                @ok="createTrainee()"
                 ok-title="Submit">
 
                 <form ref="form" @submit.stop.prevent="handleSubmit">
@@ -56,8 +56,8 @@
                             <b-col class="col-8">
                                 <b-form-input
                                 id="update-trainee-username"
-                                v-model="traineeUsername"
-                                v-bind:value="traineeUsername"
+                                v-model="postBody.username"
+                               
                                 required></b-form-input>
                             </b-col>
                         </b-row>
@@ -66,8 +66,8 @@
                             <b-col class="col-8">
                                 <b-form-input
                                 id="update-trainee-name"
-                                v-model="traineeName"
-                                v-bind:value="traineeName"
+                                v-model="postBody.name"
+                              
                                 required></b-form-input>
                             </b-col>
                         </b-row>
@@ -76,34 +76,26 @@
                             <b-col class="col-8">
                                 <b-form-input
                                 id="update-trainee-password"
-                                v-model="traineePassword"
+                                v-model="postBody.password"
                                 required></b-form-input>
                             </b-col>
                         </b-row>
+                        
                         <b-row class="decor">
                             <b-col class="col-4"><span>Trainee Address</span></b-col>
                             <b-col class="col-8">
                                 <b-form-input
                                 id="update-trainee-address"
-                                v-model="traineeAddress"
+                                v-model="postBody.address"
                                 required></b-form-input>
                             </b-col>
                         </b-row>
                         <b-row class="decor">
-                            <b-col class="col-4"><span>Trainee Telephone</span></b-col>
+                            <b-col class="col-4"><span>Trainee Age</span></b-col>
                             <b-col class="col-8">
                                 <b-form-input
-                                id="update-trainee-education"
-                                v-model="traineeEducation"
-                                required></b-form-input>
-                            </b-col>
-                        </b-row>
-                        <b-row class="decor">
-                            <b-col class="col-4"><span>Trainee Courses</span></b-col>
-                            <b-col class="col-8">
-                                <b-form-input
-                                id="update-trainee-course"
-                                v-model="traineeCourses"
+                                id="update-trainee-exp"
+                                v-model="postBody.age"
                                 required></b-form-input>
                             </b-col>
                         </b-row>
@@ -112,7 +104,7 @@
                             <b-col class="col-8">
                                 <b-form-input
                                 id="update-trainee-exp"
-                                v-model="traineeExp"
+                                v-model="postBody.experiences"
                                 required></b-form-input>
                             </b-col>
                         </b-row>
@@ -121,7 +113,7 @@
                             <b-col class="col-8">
                                 <b-form-input
                                 id="update-trainee-mainLang"
-                                v-model="traineeMainLang"
+                                v-model="postBody.mainProgramLanguage"
                                 required></b-form-input>
                             </b-col>
                         </b-row>
@@ -130,7 +122,16 @@
                             <b-col class="col-8">
                                 <b-form-input
                                 id="update-trainee-toeicScore"
-                                v-model="traineeToeicScore"
+                                v-model="postBody.toeicScore"
+                                required></b-form-input>
+                            </b-col>
+                        </b-row>
+                        <b-row class="decor">
+                            <b-col class="col-4"><span>Trainee education</span></b-col>
+                            <b-col class="col-8">
+                                <b-form-input
+                                id="update-trainee-password"
+                                v-model="postBody.education"
                                 required></b-form-input>
                             </b-col>
                         </b-row>
@@ -183,24 +184,26 @@
 <script>
 import axios from 'axios';
 export default {
-  name: 'StaffList',
+  name: 'TraineeList',
     data() {
       return {
-        url: 'http://df59e4c0f698.ngrok.io',
+        url: 'http://localhost:3000',
         keyword: '',
         items: [],
         selectAll: false,
         selected: [],
         alertMessage: 'Calling APIs Successful !',
-        traineeUsername: '',
-        traineeName: '',
-        traineePassword: '',
-        traineeAddress: '',
-        traineeToeicScore: '',
-        traineeMainLang: '',
-        traineeExp: '',
-        traineeCourses: '',
-        traineeEducation: '',
+        postBody:{
+          username: '',
+          name: '',
+          password: '',
+          address: '',
+          toeicScore: '',
+          mainProgramLanguage: '',
+          education: '',
+          age:'',
+          experiences: ''
+        }
       }
     },
   mounted(){
@@ -255,9 +258,26 @@ export default {
         })
       },
 
-      createStaff() {
-
-      },
+      createTrainee() {
+        console.log(this.postBody)
+        axios
+        .post(
+          `${this.url}/staff/create-trainee`,
+          this.postBody,
+          {
+            withCredentials: true,
+            mode: "cors",
+            headersheaders: { "Content-Type": "application/json" },
+          }
+        )
+        .then(() => {
+          window.alert("Create successfull");
+          window.location.reload();
+        })
+        .catch((err) => {
+          window.alert(err.response.data);
+        });
+      }, 
 
        checkFormValidity() {
         const valid = this.$refs.form.checkValidity()

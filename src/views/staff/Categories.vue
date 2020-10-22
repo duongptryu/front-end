@@ -43,7 +43,7 @@
             title="CREATE NEW CATEGORY"
             @show="resetModal"
             @hidden="resetModal"
-            @ok="handleOk"
+            @ok="createCategory()"
             ok-title="Submit">
 
             <form ref="form" @submit.stop.prevent="handleSubmit">
@@ -55,7 +55,7 @@
                     <b-col class="col-8">
                       <b-form-input
                         id="name-category"
-                        v-model="nameCategory"
+                        v-model="postBody.categoryName"
                         required>
                       </b-form-input>
                     </b-col>
@@ -65,7 +65,7 @@
                       <b-col class="col-8">
                         <b-form-input
                           id="category-description"
-                          v-model="categoryDescription"
+                          v-model="postBody.description"
                           required>
                         </b-form-input>
                       </b-col>
@@ -85,7 +85,7 @@
                         <input type="checkbox" v-model="selectAll" @click="select">
                       </label>
                     </th>
-                    <th class="text-center">Course Name</th>
+                    <th class="text-center">Category Name</th>
                     <th class="text-center">Description</th>
                     <th class="text-center">Option</th>
                   </tr>
@@ -98,7 +98,7 @@
                         <input v-model="selected" :value="item._id" type="checkbox" @change="show">
                       </label>
                     </td>
-                    <td>{{ item.courseName }}</td>
+                    <td>{{ item.categoryName }}</td>
                     <td>{{ item.description}}</td>
                     <!-- <td v-if="item.staffStatus">active</td>
                     <td v-else-if="!item.staffStatus">non-active</td> -->
@@ -122,18 +122,20 @@ export default {
   name: 'StaffList',
     data() {
       return {
-        url: 'http://df59e4c0f698.ngrok.io',
+        url: 'http://localhost:3000',
         keyword: '',
         items: [],
         selectAll: false,
         selected: [],
         alertMessage: 'Calling APIs Successful !',
-        categoryDescription: '',
-        nameCategory: '',
+        postBody: {
+          categoryName: '',
+          description: '',
+        }
       }
     },
   mounted(){
-       axios.get(`${this.url}/staff/courses`,{
+       axios.get(`${this.url}/staff/categories`,{
             withCredentials: true,
           mode: "cors",
           headers: { "Content-Type": "application/json" }
@@ -166,6 +168,26 @@ export default {
       }
       console.log(this.selected)
     },
+    createCategory() {
+        console.log(this.postBody)
+        axios
+        .post(
+          `${this.url}/staff/create-category`,
+          this.postBody,
+          {
+            withCredentials: true,
+            mode: "cors",
+            headersheaders: { "Content-Type": "application/json" },
+          }
+        )
+        .then(() => {
+          window.alert("Create successfull");
+          window.location.reload();
+        })
+        .catch((err) => {
+          window.alert(err.response.data);
+        });
+      }, 
     checkFormValidity() {
       const valid = this.$refs.form.checkValidity()
       this.nameState = valid

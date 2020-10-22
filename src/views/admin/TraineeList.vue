@@ -162,6 +162,7 @@ export default {
         selectAll: false,
         selected: [],
         alertMessage: 'Calling APIs Successful !',
+
         update: {
           id: '',
           postBody: {
@@ -212,15 +213,18 @@ export default {
       },
 
       remove(id) {
-        axios.delete(`${this.url}/admin/delete-trainee/` + id, {
+      axios
+        .delete(`${this.url}/admin/delete-trainee/` + id, {
           withCredentials: true,
           mode: "cors",
-          headers: { "Content-Type": "application/json" }
-        }).then( () => {
+          headers: { "Content-Type": "application/json" },
+        })
+        .then(() => {
           window.alert("Delete Successful !");
           window.location.reload();
-        })
-      },
+        });
+    },
+      
 
       getData(id) {
         console.log(id)

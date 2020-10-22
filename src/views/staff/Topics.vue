@@ -44,41 +44,33 @@
             title="CREATE NEW TOPIC"
             @show="resetModal"
             @hidden="resetModal"
-            @ok="handleOk"
+            @ok="createTopic()"
             ok-title="Submit">
 
             <form ref="form" @submit.stop.prevent="handleSubmit">
               <b-form-group
                 label-for="topic-new"
                 invalid-feedback="Success">
-                  <b-row class="decor">
-                    <b-col class="col-4"><span>Code Topic:</span></b-col>
+                 <b-row class="decor">
+                    <b-col class="col-4"> <span>Name Topic:</span></b-col>
                     <b-col class="col-8">
                       <b-form-input
-                        id="code-topic"
-                        v-model="codeTopic"
-                        required></b-form-input>
+                        id="name-topic"
+                        v-model="postBody.topicName"
+                        required>
+                      </b-form-input>
                     </b-col>
-                  </b-row>
+                  </b-row>      
                    <b-row class="decor">
                       <b-col class="col-4"><span>Topic Description:</span></b-col>
                       <b-col class="col-8">
                       <b-form-input
                           id="topic-description"
-                          v-model="topicDescription"
+                          v-model="postBody.description"
                           required></b-form-input>
                       </b-col>
                   </b-row>
-                  <b-row class="decor">
-                    <b-col class="col-4"> <span>Name Topic:</span></b-col>
-                    <b-col class="col-8">
-                      <b-form-input
-                        id="name-topic"
-                        v-model="nameTopic"
-                        required>
-                      </b-form-input>
-                    </b-col>
-                  </b-row>      
+                 
               </b-form-group>
             </form>
           </b-modal>
@@ -131,15 +123,16 @@ export default {
   name: 'StaffList',
     data() {
       return {
-        url: 'http://df59e4c0f698.ngrok.io',
+        url: 'http://localhost:3000',
         keyword: '',
         items: [],
         selectAll: false,
         selected: [],
         alertMessage: 'Calling APIs Successful !',
-        nameTopic: '',
-        codeTopic: '',
-        topicDescription: '',
+        postBody: {
+          topicName: '',
+          description: '',
+        }
       }
     },
   mounted(){
@@ -186,6 +179,27 @@ export default {
     show() {
       console.log(this.selected)
     },
+
+    createTopic() {
+        console.log(this.postBody)
+        axios
+        .post(
+          `${this.url}/staff/create-topic`,
+          this.postBody,
+          {
+            withCredentials: true,
+            mode: "cors",
+            headersheaders: { "Content-Type": "application/json" },
+          }
+        )
+        .then(() => {
+          window.alert("Create successfull");
+          window.location.reload();
+        })
+        .catch((err) => {
+          window.alert(err.response.data);
+        });
+      }, 
 
     resetModal() {
       this.name = ''
