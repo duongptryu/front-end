@@ -99,7 +99,7 @@
                     <b-col class="col-4"><span>Staff Username</span></b-col>
                     <b-col class="col-8">
                       <b-form-input
-                        id="code-course"
+                        id="staff-name"
                         v-model="staffName"
                         required></b-form-input>
                     </b-col>
@@ -108,8 +108,8 @@
                     <b-col class="col-4"> <span>Staff Password:</span></b-col>
                     <b-col class="col-8">
                       <b-form-input
-                        id="name-course"
-                        v-model="nameCourse"
+                        id="staff-password"
+                        v-model="staffPassword"
                         required>
                       </b-form-input>
                     </b-col>
@@ -180,8 +180,10 @@ export default {
         selected: [],
         alertMessage: 'Calling APIs Successful !',
         staffName: '',
+        staffPassword: '',
         update: {
           staffName: 'this is staff name',
+          staffPassword: 'this is staff password'
         },
       }
     },
@@ -245,9 +247,7 @@ export default {
         response => {
          console(response);
           this.staffName = this.update.staffName;
-          this.nameTrainer= this.update.nameTrainer;
-          this.nameCourse = this.update.nameCourse;
-          this.code = this.update.code;
+          this.staffPassword = this.update.staffPassword;
         })
       },
 
@@ -260,14 +260,13 @@ export default {
         this.nameState = valid
         return valid
       },
+
       resetModal() {
         this.name = ''
         this.nameState = null
       },
 
       handleOk(bvModalEvt, id) {
-        // Khong doi ten duoc a ?
-        // submit dung method gi tinh yeu oi ?
         axios.put(`${this.url}/admin/staff?id= ` + id, {
           withCredentials: true,
           mode: "cors",
