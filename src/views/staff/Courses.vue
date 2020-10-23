@@ -55,7 +55,7 @@
                     <b-col class="col-8">
                       <b-form-input
                         id="name-course"
-                        v-model="courseName"
+                        v-model="postBody.courseName"
                         required>
                       </b-form-input>
                     </b-col>
@@ -65,25 +65,26 @@
                       <b-col class="col-8">
                         <b-form-input
                           id="course-description"
-                          v-model="courseDescription"
+                          v-model="postBody.description"
                           required>
                         </b-form-input>
                       </b-col>
                   </b-row>     
-                  <!-- <b-row class="decor">
-                    <b-dropdown id="dropdown-1" text="Dropdown Button" class="m-md-2">
-                      <b-dropdown-item>First Action</b-dropdown-item>
-                      <b-dropdown-item>Second Action</b-dropdown-item>
-                      <b-dropdown-item>Third Action</b-dropdown-item>
-                    </b-dropdown>
+                  <b-row class="decor">
+
+                   
+
                     <b-col class="col-4"><span>Course category:</span></b-col>
                     <b-col class="col-8">
-                      <b-form-input
-                        id="code-course"
-                        v-model="courseCategory"
-                        required></b-form-input>
+                      <b-form-select v-model="value" :options="options"></b-form-select>
                     </b-col>
-                  </b-row>                     -->
+                  </b-row>       
+                   <b-row class="decor">
+                    <b-col class="col-4"><span>Topic</span></b-col>
+                    <b-col class="col-8">
+                      <b-form-select v-model="topicSelect" :options="topicOptions" multiple :select-size="5"></b-form-select>
+                    </b-col>
+                  </b-row>                    
               </b-form-group>
             </form>
           </b-modal>
@@ -101,6 +102,7 @@
                     </th>
                     <th class="text-center">Course Name</th>
                     <th class="text-center">Description</th>
+                    <th class="text-center">category</th>
                     <th class="text-center">Option</th>
                   </tr>
                 </thead>
@@ -113,11 +115,10 @@
                       </label>
                     </td>
                     <td>{{ item.courseName }}</td>
-                    <td>{{ item.description}}</td>
-                    <!-- <td v-if="item.staffStatus">active</td>
-                    <td v-else-if="!item.staffStatus">non-active</td> -->
+                    <td>{{ item.description }}</td>
+                    <td>{{ item.courseCategory }}</td>
                     <td> 
-                      <button class="btn btn-danger" @click="remove(result.item._id)">Delete</button> 
+                      <button class="btn btn-danger" @click="remove(item._id)">Delete</button> 
                       <button class="btn btn-success"><router-link to='/staff/CourseDetail' style="color:#ffffff; text-decoration: none">Details</router-link></button>
                     </td>
                   </tr>
@@ -142,33 +143,78 @@ export default {
         selectAll: false,
         selected: [],
         alertMessage: 'Calling APIs Successful !',
+        // categoryName: [],
         postBody: {
           courseCategory: '',
-          courseDescription: '',
+          description: '',
           courseName: '',
-        }
+          topics:[],
+        },
+         options: [
+      ],
+      topicOptions:[],
+      topicSelect:[],
+      value:''
       }
     },
   mounted(){
        axios.get(`${this.url}/staff/courses`,{
-            withCredentials: true,
+          withCredentials: true,
           mode: "cors",
           headers: { "Content-Type": "application/json" }
        }).then(
         response => {
+          console.log(response.data)
           this.items = response.data
+          // this.items.forEach(item => {
+          //   this.categoryName.push(item.courseCategory)
+          // })
+          // console.log(this.categoryName[3].categoryName)
         })
-        // .catch(() => {
-        //   this.$router.push({path: '/login'});
-        // })
-  },computed: {
+
+        .catch(() => {
+          this.$router.push({path: '/login'});
+        })
+  },
+  created(){
+    axios.get(`${this.url}/staff/categories`,{
+          withCredentials: true,
+          mode: "cors",
+          headers: { "Content-Type": "application/json" }
+       }).then(
+        response => {
+          response.data.forEach(cate => {
+            this.options.push({
+              value: cate._id,
+              text: cate.categoryName
+            })
+          })
+          
+        })
+
+         axios.get(`${this.url}/staff/topics`,{
+          withCredentials: true,
+          mode: "cors",
+          headers: { "Content-Type": "application/json" }
+       }).then(
+        response => {
+          response.data.forEach(topic => {
+            this.topicOptions.push({
+              value: topic._id,
+              text: topic.topicName
+            })
+          })
+          
+        })
+  }
+  ,computed: {
       resultQuery() {
         if(this.keyword) {
           return this.items.filter((item) => {
             return this.keyword.toLowerCase().split(' ').every(v => item.Question.toLowerCase().includes(v))
           })
         }else {
-          console.log(this.items)
+       
           return this.items
         }
       }
@@ -181,7 +227,7 @@ export default {
           this.selected.push(this.items[i]._id);
         }
       }
-      console.log(this.selected)
+    
     },
     checkFormValidity() {
       const valid = this.$refs.form.checkValidity()
@@ -192,8 +238,31 @@ export default {
       this.name = ''
       this.nameState = null
     },
+    remove(id) {
+        axios.delete(`${this.url}/staff/delete-course/` + id, {
+          withCredentials: true,
+          mode: "cors",
+          headers: { "Content-Type": "application/json" }
+        }).then( () => {
+          window.alert("Delete Successful !");
+          window.location.reload();
+        })
+      },
      createCourse() {
-        console.log(this.postBody)
+       console.log(this.topicSelect)
+      console.log(this.postBody.topic)
+      for(var i = 0; i < this.options.length; i++) {
+        if(this.value === this.options[i].value) {
+          this.postBody.courseCategory = this.options[i].value;    
+        }
+      }
+      for(var j = 0; j < this.topicSelect.length; j++) {
+          this.postBody.topics.push({
+            topic: this.topicSelect[i]
+          })   
+        }
+      
+      console.log(this.postBody)
         axios
         .post(
           `${this.url}/staff/create-course`,

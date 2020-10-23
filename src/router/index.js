@@ -46,16 +46,16 @@ const routes = [{
         redirect: { name: "adminProfile" },
         name: "adminHomePage",
         component: adminDashboard,
-        // beforeEnter: (to, from, next) => {
-        //     const role = sessionStorage.getItem('role')
-        //     if (!role) {
-        //         next({ path: '/' })
-        //     }
-        //     if (role !== 'admin') {
-        //         next({ path: '/login' })
-        //     }
-        //     next()
-        // },
+        beforeEnter: (to, from, next) => {
+            const role = sessionStorage.getItem('role')
+            if (!role) {
+                next({ path: '/' })
+            }
+            if (role !== 'admin') {
+                next({ path: '/login' })
+            }
+            next()
+        },
         meta: {
             title: "Dashboard - EduManagementSystem - Admin",
         },
@@ -124,16 +124,16 @@ const routes = [{
         path: "/staff",
         redirect: { name: "staffProfile" },
         component: staffDashboard,
-        // beforeEnter: (to, from, next) => {
-        //     const role = sessionStorage.getItem('role')
-        //     if (!role) {
-        //         next({ path: '/' })
-        //     }
-        //     if (role !== 'staff') {
-        //         next({ path: '/login' })
-        //     }
-        //     next()
-        // },
+        beforeEnter: (to, from, next) => {
+            const role = sessionStorage.getItem('role')
+            if (!role) {
+                next({ path: '/' })
+            }
+            if (role !== 'staff') {
+                next({ path: '/login' })
+            }
+            next()
+        },
         meta: {
             title: "Dashboard - EduManagementSystem - Staff",
         },
@@ -243,16 +243,16 @@ const routes = [{
         redirect: { name: "TraineeHomePage" },
         name: "trainee",
         component: traineeDashboard,
-        // beforeEnter: (to, from, next) => {
-        //     const role = sessionStorage.getItem('role')
-        //     if (!role) {
-        //         next({ path: '/' })
-        //     }
-        //     if (role !== 'trainee') {
-        //         next({ path: '/login' })
-        //     }
-        //     next()
-        // },
+        beforeEnter: (to, from, next) => {
+            const role = sessionStorage.getItem('role')
+            if (!role) {
+                next({ path: '/' })
+            }
+            if (role !== 'trainee') {
+                next({ path: '/login' })
+            }
+            next()
+        },
         meta: {
             title: "Dashboard - EduManagementSystem - Trainee",
         },
@@ -281,16 +281,16 @@ const routes = [{
         redirect: { name: "trainerProfile" },
         name: "trainer",
         component: trainerDashboard,
-        // beforeEnter: (to, from, next) => {
-        //     const role = sessionStorage.getItem('role')
-        //     if (!role) {
-        //         next({ path: '/' })
-        //     }
-        //     if (role !== 'trainer') {
-        //         next({ path: '/login' })
-        //     }
-        //     next()
-        // },
+        beforeEnter: (to, from, next) => {
+            const role = sessionStorage.getItem('role')
+            if (!role) {
+                next({ path: '/' })
+            }
+            if (role !== 'trainer') {
+                next({ path: '/login' })
+            }
+            next()
+        },
         meta: {
             title: "Dashboard - EduManagementSystem - Trainer",
         },
@@ -305,7 +305,7 @@ const routes = [{
             // },
             {
                 path: "trainerProfile",
-                name: "Trainer-profile",
+                name: "trainerProfile",
                 component: trainerProfile,
                 meta: {
                     title: "Profile",

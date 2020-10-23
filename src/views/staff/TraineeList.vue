@@ -153,6 +153,8 @@
                     <th class="text-center">Username</th>
                     <th class="text-center">Password</th>
                     <th class="text-center">Name</th>
+                    <th class="text-center">Course</th>
+                    <th class="text-center">Credits</th>
                     <th class="text-center">Option</th>
                   </tr>
                 </thead>
@@ -166,7 +168,9 @@
                     </td>
                     <td>{{ item.username }}</td>
                     <td>{{ item.password}}</td>
-                    <td>{{ item.name}}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ courseArray }}</td>
+                    <td>{{ totalCredit }}</td>
                     <td>                       
                     <button class="btn btn-danger" @click="remove(item._id)">Delete</button>   
                     <button class="btn btn-success"><router-link to='/staff/traineeDetail' style="color:#ffffff; text-decoration: none">Details</router-link></button>
@@ -193,6 +197,8 @@ export default {
         selectAll: false,
         selected: [],
         alertMessage: 'Calling APIs Successful !',
+        totalCredit: 0,
+        courseArray: '',
         postBody:{
           username: '',
           name: '',
@@ -203,9 +209,9 @@ export default {
           education: '',
           age:'',
           experiences: ''
-        }
+
       }
-    },
+    }},
   mounted(){
        axios.get(`${this.url}/admin/trainees`, {
           withCredentials: true,
@@ -214,6 +220,10 @@ export default {
        }).then(
         response => {
           this.items = response.data
+          this.totalCredit = response.data[0].courses.length
+          response.data[0].courses.forEach(course => {
+            this.courseArray += course.course.courseName + " "
+          })
         })
         // .catch(() => {
         //   this.$router.push({path: '/login'});

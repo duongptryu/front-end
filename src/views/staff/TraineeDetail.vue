@@ -222,9 +222,9 @@ export default {
         response => {
           this.items = response.data
         })
-        // .catch(() => {
-        //   this.$router.push({path: '/login'});
-        // })
+        .catch(() => {
+          this.$router.push({path: '/login'});
+        })
   },
   computed: {
       resultQuery() {

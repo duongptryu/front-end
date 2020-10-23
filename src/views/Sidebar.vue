@@ -95,8 +95,7 @@
 
       <li>
         <router-link to="/login"
-          ><i class="icofont-logout"></i> Logout</router-link
-        >
+          ><button @click="logout()" class="btn btn-warning"><i class="icofont-logout"></i>Logout</button></router-link>
       </li>
     </ul>
   </div>
@@ -142,7 +141,8 @@ export default {
   },
   methods: {
     logout() {
-      sessionStorage.setItem("role", null);
+      console.log(123);
+      sessionStorage.removeItem("role");
       axios.post(`${this.url}/login/logout`, {
         withCredentials: true,
         mode: "cors",
